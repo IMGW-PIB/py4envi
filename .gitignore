@@ -1,0 +1,28 @@
+**/venv
+**/*.tiff
+**/*.jp2
+**/*.zip
+**/*.SAFE
+# shape
+**/*.shp
+**/*.shx
+**/*.cpg
+**/*.dbf
+**/*.prj
+# allow layers
+!sats/resources/**/*.shp
+!sats/resources/**/*.shx
+!sats/resources/**/*.cpg
+!sats/resources/**/*.dbf
+!sats/resources/**/*.prj
+**/__pycache__
+**/.ipynb_checkpoints
+**/*.pyc
+**/*_cache
+**/build
+**/dist
+**/*.egg-info
+.vscode
+# exclude data
+data/*
+!data/.gitkeep 
