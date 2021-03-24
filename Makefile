@@ -1,6 +1,6 @@
 VENV_NAME?=venv
 MODULE=py4envi
-LIBS=py4envi setup.py
+LINTED=$(shell find -name "*.py" -not -path "./venv/*" -not -path "./tests/openapi/*" -not -path "./py4envi/openapi_client/*")
 PYTHON=${VENV_NAME}/bin/python3
 
 venv: $(VENV_NAME)/bin/activate
@@ -20,9 +20,9 @@ clean:
 	rm -rf *.egg-info
 
 lint: venv
-	${PYTHON} -m autopep8 --in-place -a -a -r ${LIBS} tests
-	${PYTHON} -m autoflake --in-place --recursive --remove-all-unused-imports ${LIBS} tests
-	${PYTHON} -m mypy --ignore-missing-imports ${LIBS} tests
+	${PYTHON} -m autopep8 --in-place -a -a -r ${LINTED}
+	${PYTHON} -m autoflake --in-place --recursive --remove-all-unused-imports ${LINTED}
+	${PYTHON} -m mypy --ignore-missing-imports ${LINTED}
 
 test: venv
 	${PYTHON} -m pytest tests --capture=no --verbose 
