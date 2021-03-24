@@ -11,7 +11,7 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from openapi_client.model_utils import (  # noqa: F401
+from ..model_utils import (  # noqa: F401
     ApiTypeError,
     ModelComposed,
     ModelNormal,
@@ -27,7 +27,7 @@ from openapi_client.model_utils import (  # noqa: F401
 )
 
 def lazy_import():
-    from openapi_client.model.basic_product_category_response import BasicProductCategoryResponse
+    from ..model.basic_product_category_response import BasicProductCategoryResponse
     globals()['BasicProductCategoryResponse'] = BasicProductCategoryResponse
 
 

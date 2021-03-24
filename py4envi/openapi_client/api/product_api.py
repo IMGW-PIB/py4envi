@@ -11,8 +11,8 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from openapi_client.api_client import ApiClient, Endpoint as _Endpoint
-from openapi_client.model_utils import (  # noqa: F401
+from ..api_client import ApiClient, Endpoint as _Endpoint
+from ..model_utils import (  # noqa: F401
     check_allowed_values,
     check_validations,
     date,
@@ -21,7 +21,7 @@ from openapi_client.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
-from openapi_client.model.basic_product_response import BasicProductResponse
+from ..model.basic_product_response import BasicProductResponse
 
 
 class ProductApi(object):

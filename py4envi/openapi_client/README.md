@@ -51,9 +51,9 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import time
 import openapi_client
 from pprint import pprint
-from openapi_client.api import auth_api
-from openapi_client.model.login_request import LoginRequest
-from openapi_client.model.token_response import TokenResponse
+from ..api import auth_api
+from ..model.login_request import LoginRequest
+from ..model.token_response import TokenResponse
 # Defining the host is optional and defaults to https://dane.sat4envi.imgw.pl
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
@@ -129,8 +129,8 @@ RecursionError indicating the maximum recursion limit has been exceeded. In that
 
 Solution 1:
 Use specific imports for apis and models like:
-- `from openapi_client.api.default_api import DefaultApi`
-- `from openapi_client.model.pet import Pet`
+- `from ..api.default_api import DefaultApi`
+- `from ..model.pet import Pet`
 
 Solution 2:
 Before importing the package, adjust the maximum recursion limit as shown below:
@@ -138,7 +138,7 @@ Before importing the package, adjust the maximum recursion limit as shown below:
 import sys
 sys.setrecursionlimit(1500)
 import openapi_client
-from openapi_client.apis import *
-from openapi_client.models import *
+from ..apis import *
+from ..models import *
 ```
 

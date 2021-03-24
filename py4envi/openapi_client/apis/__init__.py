@@ -14,7 +14,7 @@
 #   sys.setrecursionlimit(n)
 
 # Import APIs into API package:
-from openapi_client.api.auth_api import AuthApi
-from openapi_client.api.product_api import ProductApi
-from openapi_client.api.scene_api import SceneApi
-from openapi_client.api.search_api import SearchApi
+from ..api.auth_api import AuthApi
+from ..api.product_api import ProductApi
+from ..api.scene_api import SceneApi
+from ..api.search_api import SearchApi

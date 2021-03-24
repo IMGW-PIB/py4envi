@@ -11,7 +11,7 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from openapi_client.model_utils import (  # noqa: F401
+from ..model_utils import (  # noqa: F401
     ApiTypeError,
     ModelComposed,
     ModelNormal,
