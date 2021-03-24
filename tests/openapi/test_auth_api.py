@@ -10,6 +10,7 @@
 
 import unittest
 
+import openapi_client
 from openapi_client.api.auth_api import AuthApi  # noqa: E501
 
 
@@ -27,6 +28,7 @@ class TestAuthApi(unittest.TestCase):
 
         Get authorization token  # noqa: E501
         """
+        pass
 
 
 if __name__ == '__main__':

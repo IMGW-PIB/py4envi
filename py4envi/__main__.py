@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 import atexit
+from . import token
 
 
 def configure_logging():
@@ -17,6 +18,7 @@ def cleanup():
 
 def run() -> int:
     atexit.register(cleanup)
+    token.get_new_token()
     return 0
 
 

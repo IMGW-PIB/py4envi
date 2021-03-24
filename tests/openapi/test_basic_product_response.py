@@ -8,10 +8,13 @@
 """
 
 
+import sys
 import unittest
 
+import openapi_client
 from openapi_client.model.basic_product_category_response import BasicProductCategoryResponse
 globals()['BasicProductCategoryResponse'] = BasicProductCategoryResponse
+from openapi_client.model.basic_product_response import BasicProductResponse
 
 
 class TestBasicProductResponse(unittest.TestCase):
@@ -27,6 +30,7 @@ class TestBasicProductResponse(unittest.TestCase):
         """Test BasicProductResponse"""
         # FIXME: construct object with mandatory attributes with example values
         # model = BasicProductResponse()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

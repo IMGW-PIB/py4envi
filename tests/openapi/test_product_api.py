@@ -10,6 +10,7 @@
 
 import unittest
 
+import openapi_client
 from openapi_client.api.product_api import ProductApi  # noqa: E501
 
 
@@ -27,6 +28,7 @@ class TestProductApi(unittest.TestCase):
 
         View a list of products  # noqa: E501
         """
+        pass
 
 
 if __name__ == '__main__':

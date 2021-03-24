@@ -8,8 +8,11 @@
 """
 
 
+import sys
 import unittest
 
+import openapi_client
+from openapi_client.model.token_response import TokenResponse
 
 
 class TestTokenResponse(unittest.TestCase):
@@ -25,6 +28,7 @@ class TestTokenResponse(unittest.TestCase):
         """Test TokenResponse"""
         # FIXME: construct object with mandatory attributes with example values
         # model = TokenResponse()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

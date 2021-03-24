@@ -8,8 +8,11 @@
 """
 
 
+import sys
 import unittest
 
+import openapi_client
+from openapi_client.model.search_response import SearchResponse
 
 
 class TestSearchResponse(unittest.TestCase):
@@ -25,6 +28,7 @@ class TestSearchResponse(unittest.TestCase):
         """Test SearchResponse"""
         # FIXME: construct object with mandatory attributes with example values
         # model = SearchResponse()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':

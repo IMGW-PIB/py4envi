@@ -10,6 +10,7 @@
 
 import unittest
 
+import openapi_client
 from openapi_client.api.scene_api import SceneApi  # noqa: E501
 
 
@@ -27,6 +28,7 @@ class TestSceneApi(unittest.TestCase):
 
         Redirect to a presigned download url for a scene's artifact  # noqa: E501
         """
+        pass
 
 
 if __name__ == '__main__':

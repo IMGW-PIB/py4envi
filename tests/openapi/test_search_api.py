@@ -10,6 +10,7 @@
 
 import unittest
 
+import openapi_client
 from openapi_client.api.search_api import SearchApi  # noqa: E501
 
 
@@ -27,12 +28,14 @@ class TestSearchApi(unittest.TestCase):
 
         Get count of total scene results  # noqa: E501
         """
+        pass
 
     def test_get_scenes(self):
         """Test case for get_scenes
 
         Search for scenes  # noqa: E501
         """
+        pass
 
 
 if __name__ == '__main__':

@@ -8,8 +8,11 @@
 """
 
 
+import sys
 import unittest
 
+import openapi_client
+from openapi_client.model.login_request import LoginRequest
 
 
 class TestLoginRequest(unittest.TestCase):
@@ -25,6 +28,7 @@ class TestLoginRequest(unittest.TestCase):
         """Test LoginRequest"""
         # FIXME: construct object with mandatory attributes with example values
         # model = LoginRequest()  # noqa: E501
+        pass
 
 
 if __name__ == '__main__':
