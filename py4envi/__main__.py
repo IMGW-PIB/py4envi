@@ -2,7 +2,6 @@ import os
 import sys
 import logging
 import atexit
-from . import token
 
 
 def configure_logging():
@@ -18,7 +17,8 @@ def cleanup():
 
 def run() -> int:
     atexit.register(cleanup)
-    token.get_new_token()
+    #email, pwd = token.read_netrc_for_url("dane.sat4envi.imgw.pl") or ("", "")
+    #token.get_new_token(email, pwd)
     return 0
 
 
