@@ -1,5 +1,6 @@
-from requests import Response
+from dataclasses import dataclass
 from typing import Optional
+from requests import Response
 from py4envi.models import ModelResponse, ModelRequest
 
 
@@ -18,7 +19,7 @@ class TokenResponse(ModelResponse):
         return self._token
 
 
+@dataclass
 class TokenRequest(ModelRequest):
-    def __init__(self, email: str, password: str):
-        self._email = email
-        self._password = password
+    email: str
+    password: str
