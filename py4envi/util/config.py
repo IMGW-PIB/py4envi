@@ -41,8 +41,8 @@ def get_section(section: str):
     Returns:
         Section from the config file
     """
-    return read("sats.ini", str(current_file_folder().joinpath('sats.ini')), str(
-        current_file_folder().parent.joinpath('sats.ini')), "overrides.ini")[section]
+    return read("config.ini", str(current_file_folder().joinpath('config.ini')), str(
+        current_file_folder().parent.joinpath('config.ini')), "overrides.ini")[section]
 
 
 class Sat4enviConfig:

@@ -48,10 +48,10 @@ def _cache_token(token: str) -> bool:
     """
     saves the provided token in a temporary file
     """
-    with tempfile.TemporaryDirectory() as tmpdir:
-        out = Path(tmpdir).joinpath(SAT4ENVI_CONFIG.token_cache_filename)
-        with open(out, "w") as f:
-            bytes_written = f.write(token)
+    dir = tempfile.gettempdir()
+    out = Path(dir).joinpath(SAT4ENVI_CONFIG.token_cache_filename)
+    with open(out, "w") as f:
+        bytes_written = f.write(token)
         return bytes_written > 0
 
 
@@ -59,14 +59,14 @@ def _read_cached_token() -> Optional[str]:
     """
     reads the cached token
     """
-    with tempfile.TemporaryDirectory() as tmpdir:
-        out = Path(tmpdir).joinpath(SAT4ENVI_CONFIG.token_cache_filename)
-        if out.exists():
-            with open(out, "r") as f:
-                token = f.read()
-            token = token.strip()
-            if token != "":
-                return token
+    dir = tempfile.gettempdir()
+    out = Path(dir).joinpath(SAT4ENVI_CONFIG.token_cache_filename)
+    if out.exists():
+        with open(out, "r") as f:
+            token = f.read()
+        token = token.strip()
+        if token != "":
+            return token
     return None
 
 
