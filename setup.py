@@ -4,7 +4,7 @@ from py4envi import __version__
 NAME = "py4envi"
 REQUIRES = [
     "urllib3 >= 1.25.3",
-    "python-dateutil",
+    "requests >= 2.25.1",
 ]
 
 setup(
