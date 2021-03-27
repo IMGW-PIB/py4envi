@@ -1,15 +1,36 @@
 import tempfile
 import random
 import string
-from unittest.mock import patch
 from pathlib import Path
-from requests.models import Response
+from typing import Callable, Optional
 from py4envi import token
-from py4envi.util import rest
+from py4envi_openapi_client.api import auth_api
+from py4envi_openapi_client import ApiClient
+from py4envi_openapi_client.models import TokenResponse, LoginRequest
 
 
 def _random_str() -> str:
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+
+
+def _gen_mocked_auth_api(
+        ret_token: Optional[str] = "fake token",
+) -> Callable[[ApiClient], auth_api.AuthApi]:
+
+    class MockedAuthApi(auth_api.AuthApi):
+        def __init__(self):
+            # initialize super to later overwrite token
+            super().__init__()
+
+            def token_f(_: LoginRequest):
+                tr = TokenResponse()
+                tr.email = "fake@fake.com"
+                tr.token = ret_token
+                return tr
+
+            self.token = token_f
+
+    return lambda _: MockedAuthApi()
 
 
 def test_cache_token():
@@ -38,37 +59,31 @@ def test_netrc():
 
 
 def test_get_new_token():
-    resp = Response()
-    resp._content = b'{"email": "a@a.a", "token": "fake token"}'
+    test_token = "fake token"
 
-    # mock our entry REST class to return what we want
-    with patch.object(rest.REST, 'post_json', return_value=resp):
-        tkn = token._get_new_token('', '')
-        assert tkn is not None
-        assert tkn == 'fake token'
+    # mock our class to return what we want
+    tkn = token._get_new_token('', '', auth_api_fun=_gen_mocked_auth_api(test_token))
+    assert tkn is not None
+    assert tkn == test_token
 
 
 def test_get_or_request_token():
-    resp = Response()
-    resp._content = b'{"email": "a@a.a", "token": "some token"}'
+    test_token = "fake token"
 
-    # mock our entry REST class to return what we want
-    with patch.object(rest.REST, 'post_json', return_value=resp):
-        tkn = token.get_or_request_token('', '', force=True)
-        assert tkn is not None
-        assert tkn == "some token"
+    tkn = token.get_or_request_token(
+        '', '', auth_api_fun=_gen_mocked_auth_api(test_token), force=True)
+    assert tkn is not None
+    assert tkn == test_token
 
-    resp._content = None
-    # mock our entry REST class to return nothing, we should get error because we are forcing
-    with patch.object(rest.REST, 'post_json', return_value=resp):
-        try:
-            tkn = token.get_or_request_token('', '', force=True)
-        except BaseException:
-            tkn = None
+    # we should get error because we are forcing
+    try:
+        tkn = token.get_or_request_token(
+            '', '', auth_api_fun=_gen_mocked_auth_api(None), force=True)
+    except BaseException:
+        tkn = None
+    assert tkn is None
 
-        assert tkn is None
-    # mock our entry REST class to return nothing, now we should get cached token
-    with patch.object(rest.REST, 'post_json', return_value=resp):
-        tkn = token.get_or_request_token('', '', force=False)
-        assert tkn is not None
-        assert tkn == "some token"
+    # now just read that cached one
+    tkn = token.get_or_request_token('', '', auth_api_fun=_gen_mocked_auth_api(None), force=False)
+    assert tkn is not None
+    assert tkn == test_token

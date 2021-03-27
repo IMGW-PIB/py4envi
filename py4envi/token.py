@@ -2,22 +2,27 @@ import tempfile
 import logging
 import netrc
 from pathlib import Path
-from typing import Optional, Tuple
-from py4envi.util.config import Sat4enviConfig
-from py4envi.endpoints import token
+from typing import Optional, Tuple, Callable
+import py4envi_openapi_client
+from py4envi_openapi_client.api import auth_api
+from py4envi_openapi_client.model.token_response import TokenResponse
+from py4envi_openapi_client.model.login_request import LoginRequest
+
 
 logger = logging.getLogger(__name__)
-SAT4ENVI_CONFIG = Sat4enviConfig()
+TOKEN_CACHE_FILENAME = 'sat4envi_token.txt'
 
 
-def read_netrc_for_url(url: str, file_location: Path = Path(
-        '~/.netrc')) -> Optional[Tuple[str, str]]:
+def read_netrc_for_url(
+        url: str,
+        file_location: Path = Path('~/.netrc'),
+) -> Optional[Tuple[str, str]]:
     """
     reads username and password from netrc file in the user's home dir
     """
     logger.debug("getting auth data for host: %s from netrc file", url)
     # explicitly specify file to avoid permission checks
-    nrc = netrc.netrc(str(file_location.resolve().absolute()))
+    nrc = netrc.netrc(str(file_location.expanduser().resolve().absolute()))
     for h, lap in nrc.hosts.items():
         if h in url:
             return lap[0], lap[2] or ""
@@ -29,19 +34,34 @@ def read_netrc_for_url(url: str, file_location: Path = Path(
     return None
 
 
-def _get_new_token(email: str, password: str) -> Optional[str]:
+def _get_new_token(email: str,
+                   password: str,
+                   auth_api_fun: Callable[[py4envi_openapi_client.ApiClient],
+                                          auth_api.AuthApi] = lambda c: auth_api.AuthApi(c),
+                   ) -> Optional[str]:
     """
     requests and returns a current api token
     """
     logger.info("Requesting new api token")
-    endpoint = token.TokenEndpoint(email, password)
+    configuration = py4envi_openapi_client.Configuration()
+    # Enter a context with an instance of the API client
+    with py4envi_openapi_client.ApiClient(configuration) as api_client:
+        # Create an instance of the API class
+        api_instance = auth_api_fun(api_client)
+        login_request = LoginRequest(
+            email=email,
+            password=password,
+        )
 
-    token_response = endpoint.request_bearer_token()
-
-    if token_response:
-        return token_response.token
-    logger.error("could not get a new token")
-    return None
+        try:
+            # Get authorization token
+            api_response: TokenResponse = api_instance.token(login_request)
+            if api_response:
+                return api_response.token
+            logger.error("bad response from api token request")
+        except py4envi_openapi_client.ApiException:
+            logger.error("Exception when calling AuthApi->token", exc_info=True)
+        return None
 
 
 def _cache_token(token: str) -> bool:
@@ -49,7 +69,7 @@ def _cache_token(token: str) -> bool:
     saves the provided token in a temporary file
     """
     dir = tempfile.gettempdir()
-    out = Path(dir).joinpath(SAT4ENVI_CONFIG.token_cache_filename)
+    out = Path(dir).joinpath(TOKEN_CACHE_FILENAME)
     with open(out, "w") as f:
         bytes_written = f.write(token)
         return bytes_written > 0
@@ -60,7 +80,7 @@ def _read_cached_token() -> Optional[str]:
     reads the cached token
     """
     dir = tempfile.gettempdir()
-    out = Path(dir).joinpath(SAT4ENVI_CONFIG.token_cache_filename)
+    out = Path(dir).joinpath(TOKEN_CACHE_FILENAME)
     if out.exists():
         with open(out, "r") as f:
             token = f.read()
@@ -70,14 +90,19 @@ def _read_cached_token() -> Optional[str]:
     return None
 
 
-def get_or_request_token(email: str, password: str, force: bool = False) -> str:
+def get_or_request_token(
+        email: str,
+        password: str,
+        force: bool = False,
+        auth_api_fun: Callable[[py4envi_openapi_client.ApiClient], auth_api.AuthApi] = lambda c: auth_api.AuthApi(c),
+) -> str:
     """
     gets the cached token if it exists and force is not specified,
     else it gets a new token and caches it.
     """
     tkn = _read_cached_token()
     if force or not tkn:
-        tkn = _get_new_token(email, password)
+        tkn = _get_new_token(email, password, auth_api_fun)
         if not tkn:
             logger.error("did not receive token for the specified credentials")
             raise Exception("empty token response")

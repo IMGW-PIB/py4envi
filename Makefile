@@ -1,6 +1,6 @@
 VENV_NAME?=venv
 MODULE=py4envi
-LINTED=$(shell find -name "*.py" -not -path "./venv/*")
+LINTED=$(shell find -name "*.py" -not -path "./venv/*" -not -path "./py4envi_openapi_client/*")
 PYTHON=${VENV_NAME}/bin/python3
 
 venv: $(VENV_NAME)/bin/activate
@@ -22,7 +22,7 @@ clean:
 lint: venv
 	${PYTHON} -m autopep8 --in-place -a -a -r ${LINTED}
 	${PYTHON} -m autoflake --in-place --recursive --remove-all-unused-imports ${LINTED}
-	${PYTHON} -m mypy --ignore-missing-imports --follow-imports=normal ${LINTED}
+	${PYTHON} -m mypy --ignore-missing-imports --follow-imports=skip ${LINTED}
 
 test: venv
 	${PYTHON} -m pytest tests --capture=no --verbose 
