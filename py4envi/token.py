@@ -1,7 +1,6 @@
 import tempfile
 import logging
 import netrc
-import os
 from pathlib import Path
 from typing import Optional, Tuple
 from py4envi.util.config import Sat4enviConfig
@@ -11,13 +10,14 @@ logger = logging.getLogger(__name__)
 SAT4ENVI_CONFIG = Sat4enviConfig()
 
 
-def read_netrc_for_url(url: str) -> Optional[Tuple[str, str]]:
+def read_netrc_for_url(url: str, file_location: Path = Path(
+        '~/.netrc')) -> Optional[Tuple[str, str]]:
     """
     reads username and password from netrc file in the user's home dir
     """
     logger.debug("getting auth data for host: %s from netrc file", url)
     # explicitly specify file to avoid permission checks
-    nrc = netrc.netrc(os.path.expanduser("~/.netrc"))
+    nrc = netrc.netrc(str(file_location.resolve().absolute()))
     for h, lap in nrc.hosts.items():
         if h in url:
             return lap[0], lap[2] or ""
@@ -25,7 +25,7 @@ def read_netrc_for_url(url: str) -> Optional[Tuple[str, str]]:
     lap2 = nrc.authenticators(url)
     if lap2 is not None and lap2[2] is not None:
         return lap2[0], lap2[2] or ""
-    logger.warn("auth data for host: %s not found in netrc file", url)
+    logger.warning("auth data for host: %s not found in netrc file", url)
     return None
 
 
