@@ -1,0 +1,643 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Sat4Envi backend API",
+        "description": "The API documentation of the backend.\n\nAccess to definition group `public` is unrestricted. To access group `provider` you need extra permissions and group `private` isn't made available publicly.",
+        "version": "v1"
+    },
+    "servers": [
+        {
+            "url": "https://dane.sat4envi.imgw.pl",
+            "description": "Generated server url"
+        }
+    ],
+    "security": [
+        {
+            "bearer-token": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "product",
+            "description": "The Product API"
+        },
+        {
+            "name": "search",
+            "description": "The Search API"
+        },
+        {
+            "name": "auth",
+            "description": "The Authorization API"
+        },
+        {
+            "name": "scene",
+            "description": "The Scene API"
+        }
+    ],
+    "paths": {
+        "/api/v1/token": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get authorization token",
+                "operationId": "token",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "403": {
+                        "description": "Forbidden: Account disabled (not activated)"
+                    },
+                    "400": {
+                        "description": "Incorrect request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated: Incorrect credentials or account doesn't exist"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TokenResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/search": {
+            "get": {
+                "tags": [
+                    "search"
+                ],
+                "summary": "Search for scenes",
+                "operationId": "getScenes",
+                "parameters": [
+                    {
+                        "name": "sensingFrom",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sensingTo",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+
+                    },
+                    {
+                        "name": "ingestionFrom",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+
+                    },
+                    {
+                        "name": "ingestionTo",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+
+                    },
+                    {
+                        "name": "satellitePlatform",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+
+                    },
+                    {
+                        "name": "productType",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "processingLevel",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "polarisation",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sensorMode",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "relativeOrbitNumber",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "absoluteOrbitNumber",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "collection",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "timeliness",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "instrument",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "footprint",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "productLevel",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "cloudCover",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "200": {
+                        "description": "Successfully retrieved list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SearchResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Incorrect request"
+                    }
+                }
+            }
+        },
+        "/api/v1/search/count": {
+            "get": {
+                "tags": [
+                    "search"
+                ],
+                "summary": "Get count of total scene results",
+                "operationId": "getCount",
+                "parameters": [
+                    {
+                        "name": "sensingFrom",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sensingTo",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+
+                    },
+                    {
+                        "name": "ingestionFrom",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+
+                    },
+                    {
+                        "name": "ingestionTo",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+
+                    },
+                    {
+                        "name": "satellitePlatform",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+
+                    },
+                    {
+                        "name": "productType",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "required": true
+                    },
+                    {
+                        "name": "processingLevel",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "polarisation",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sensorMode",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "relativeOrbitNumber",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "absoluteOrbitNumber",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "collection",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "timeliness",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "instrument",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "footprint",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "productLevel",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "cloudCover",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "200": {
+                        "description": "Successfully retrieved count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int64"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Incorrect request"
+                    }
+                }
+            }
+        },
+        "/api/v1/scenes/{id}/download/{artifactName}": {
+            "get": {
+                "tags": [
+                    "scene"
+                ],
+                "summary": "Redirect to a presigned download url for a scene's artifact",
+                "operationId": "generateDownloadLink",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "artifactName",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Scene or artifact not found"
+                    },
+                    "303": {
+                        "description": "Redirect to the presigned download url",
+                        "headers": {
+                            "Location": {
+                                "description": "The presigned download url",
+                                "style": "simple"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/v1/products": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "View a list of products",
+                "operationId": "getProducts",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BasicProductResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "LoginRequest": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "TokenResponse": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    }
+                }
+            },
+            "JsonNode": {
+                "type": "object"
+            },
+            "SearchResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "productId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "sceneKey": {
+                        "type": "string"
+                    },
+                    "footprint": {
+                        "type": "string"
+                    },
+                    "artifacts": {
+                        "uniqueItems": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "metadataContent": {
+                        "$ref": "#/components/schemas/JsonNode"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "hasZipArtifact": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "BasicProductCategoryResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "label": {
+                        "type": "string"
+                    },
+                    "iconPath": {
+                        "type": "string"
+                    },
+                    "rank": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "BasicProductResponse": {
+                "type": "object",
+                "properties": {
+                    "favourite": {
+                        "type": "boolean"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "productCategory": {
+                        "$ref": "#/components/schemas/BasicProductCategoryResponse"
+                    },
+                    "rank": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearer-token": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

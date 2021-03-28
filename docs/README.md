@@ -25,7 +25,7 @@ pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
 
 Then import the package:
 ```python
-import py4envi_openapi_client
+import py4envi_py4envi_openapi_client
 ```
 
 ### Setuptools
@@ -39,7 +39,7 @@ python setup.py install --user
 
 Then import the package:
 ```python
-import py4envi_openapi_client
+import py4envi_py4envi_openapi_client
 ```
 
 ## Getting Started
@@ -49,14 +49,14 @@ Please follow the [installation procedure](#installation--usage) and then run th
 ```python
 
 import time
-import py4envi_openapi_client
+import py4envi_py4envi_openapi_client
 from pprint import pprint
-from py4envi_openapi_client.api import auth_api
-from py4envi_openapi_client.model.login_request import LoginRequest
-from py4envi_openapi_client.model.token_response import TokenResponse
+from py4envi_py4envi_openapi_client.api import auth_api
+from py4envi_py4envi_openapi_client.model.login_request import LoginRequest
+from py4envi_py4envi_openapi_client.model.token_response import TokenResponse
 # Defining the host is optional and defaults to https://dane.sat4envi.imgw.pl
 # See configuration.py for a list of all supported configuration parameters.
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     host = "https://dane.sat4envi.imgw.pl"
 )
 
@@ -66,13 +66,13 @@ configuration = py4envi_openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer-token
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 
 # Enter a context with an instance of the API client
-with py4envi_openapi_client.ApiClient(configuration) as api_client:
+with py4envi_py4envi_openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = auth_api.AuthApi(api_client)
     login_request = LoginRequest(
@@ -84,7 +84,7 @@ with py4envi_openapi_client.ApiClient(configuration) as api_client:
         # Get authorization token
         api_response = api_instance.token(login_request)
         pprint(api_response)
-    except py4envi_openapi_client.ApiException as e:
+    except py4envi_py4envi_openapi_client.ApiException as e:
         print("Exception when calling AuthApi->token: %s\n" % e)
 ```
 
@@ -124,21 +124,21 @@ Class | Method | HTTP request | Description
 
 
 ## Notes for Large OpenAPI documents
-If the OpenAPI document is large, imports in py4envi_openapi_client.apis and py4envi_openapi_client.models may fail with a
+If the OpenAPI document is large, imports in py4envi_py4envi_openapi_client.apis and py4envi_py4envi_openapi_client.models may fail with a
 RecursionError indicating the maximum recursion limit has been exceeded. In that case, there are a couple of solutions:
 
 Solution 1:
 Use specific imports for apis and models like:
-- `from py4envi_openapi_client.api.default_api import DefaultApi`
-- `from py4envi_openapi_client.model.pet import Pet`
+- `from py4envi_py4envi_openapi_client.api.default_api import DefaultApi`
+- `from py4envi_py4envi_openapi_client.model.pet import Pet`
 
 Solution 2:
 Before importing the package, adjust the maximum recursion limit as shown below:
 ```
 import sys
 sys.setrecursionlimit(1500)
-import py4envi_openapi_client
-from py4envi_openapi_client.apis import *
-from py4envi_openapi_client.models import *
+import py4envi_py4envi_openapi_client
+from py4envi_py4envi_openapi_client.apis import *
+from py4envi_py4envi_openapi_client.models import *
 ```
 

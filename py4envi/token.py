@@ -4,9 +4,8 @@ import netrc
 from pathlib import Path
 from typing import Optional, Tuple, Callable
 import py4envi_openapi_client
-from py4envi_openapi_client.api import auth_api
-from py4envi_openapi_client.model.token_response import TokenResponse
-from py4envi_openapi_client.model.login_request import LoginRequest
+from py4envi_openapi_client.apis import AuthApi
+from py4envi_openapi_client.models import TokenResponse, LoginRequest
 
 
 logger = logging.getLogger(__name__)
@@ -36,8 +35,7 @@ def read_netrc_for_url(
 
 def _get_new_token(email: str,
                    password: str,
-                   auth_api_fun: Callable[[py4envi_openapi_client.ApiClient],
-                                          auth_api.AuthApi] = lambda c: auth_api.AuthApi(c),
+                   auth_api_fun: Callable[[py4envi_openapi_client.ApiClient], AuthApi],
                    ) -> Optional[str]:
     """
     requests and returns a current api token
@@ -94,7 +92,7 @@ def get_or_request_token(
         email: str,
         password: str,
         force: bool = False,
-        auth_api_fun: Callable[[py4envi_openapi_client.ApiClient], auth_api.AuthApi] = lambda c: auth_api.AuthApi(c),
+        auth_api_fun: Callable[[py4envi_openapi_client.ApiClient], AuthApi] = lambda c: AuthApi(c),
 ) -> str:
     """
     gets the cached token if it exists and force is not specified,

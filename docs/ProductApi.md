@@ -1,4 +1,4 @@
-# py4envi_openapi_client.ProductApi
+# py4envi_py4envi_openapi_client.ProductApi
 
 All URIs are relative to *https://dane.sat4envi.imgw.pl*
 
@@ -17,13 +17,13 @@ View a list of products
 * Bearer (JWT) Authentication (bearer-token):
 ```python
 import time
-import py4envi_openapi_client
-from py4envi_openapi_client.api import product_api
-from py4envi_openapi_client.model.basic_product_response import BasicProductResponse
+import py4envi_py4envi_openapi_client
+from py4envi_py4envi_openapi_client.api import product_api
+from py4envi_py4envi_openapi_client.model.basic_product_response import BasicProductResponse
 from pprint import pprint
 # Defining the host is optional and defaults to https://dane.sat4envi.imgw.pl
 # See configuration.py for a list of all supported configuration parameters.
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     host = "https://dane.sat4envi.imgw.pl"
 )
 
@@ -33,12 +33,12 @@ configuration = py4envi_openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer-token
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with py4envi_openapi_client.ApiClient(configuration) as api_client:
+with py4envi_py4envi_openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = product_api.ProductApi(api_client)
 
@@ -47,7 +47,7 @@ with py4envi_openapi_client.ApiClient(configuration) as api_client:
         # View a list of products
         api_response = api_instance.get_products()
         pprint(api_response)
-    except py4envi_openapi_client.ApiException as e:
+    except py4envi_py4envi_openapi_client.ApiException as e:
         print("Exception when calling ProductApi->get_products: %s\n" % e)
 ```
 

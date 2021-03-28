@@ -4,7 +4,7 @@ import string
 from pathlib import Path
 from typing import Callable, Optional
 from py4envi import token
-from py4envi_openapi_client.api import auth_api
+from py4envi_openapi_client.apis import AuthApi
 from py4envi_openapi_client import ApiClient
 from py4envi_openapi_client.models import TokenResponse, LoginRequest
 
@@ -15,9 +15,9 @@ def _random_str() -> str:
 
 def _gen_mocked_auth_api(
         ret_token: Optional[str] = "fake token",
-) -> Callable[[ApiClient], auth_api.AuthApi]:
+) -> Callable[[ApiClient], AuthApi]:
 
-    class MockedAuthApi(auth_api.AuthApi):
+    class MockedAuthApi(AuthApi):
         def __init__(self):
             # initialize super to later overwrite token
             super().__init__()

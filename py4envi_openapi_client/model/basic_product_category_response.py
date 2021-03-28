@@ -72,10 +72,10 @@ class BasicProductCategoryResponse(ModelNormal):
                 and the value is attribute type.
         """
         return {
-            'label': (str,),  # noqa: E501
-            'rank': (int,),  # noqa: E501
-            'icon_path': (str,),  # noqa: E501
             'id': (int,),  # noqa: E501
+            'label': (str,),  # noqa: E501
+            'icon_path': (str,),  # noqa: E501
+            'rank': (int,),  # noqa: E501
         }
 
     @cached_property
@@ -84,10 +84,10 @@ class BasicProductCategoryResponse(ModelNormal):
 
 
     attribute_map = {
-        'label': 'label',  # noqa: E501
-        'rank': 'rank',  # noqa: E501
-        'icon_path': 'iconPath',  # noqa: E501
         'id': 'id',  # noqa: E501
+        'label': 'label',  # noqa: E501
+        'icon_path': 'iconPath',  # noqa: E501
+        'rank': 'rank',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -136,10 +136,10 @@ class BasicProductCategoryResponse(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            label (str): [optional]  # noqa: E501
-            rank (int): [optional]  # noqa: E501
-            icon_path (str): [optional]  # noqa: E501
             id (int): [optional]  # noqa: E501
+            label (str): [optional]  # noqa: E501
+            icon_path (str): [optional]  # noqa: E501
+            rank (int): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

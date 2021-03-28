@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 import atexit
-from . import token
+from . import token, products
 
 
 def configure_logging():
@@ -21,6 +21,9 @@ def run() -> int:
     email, pwd = token.read_netrc_for_url("dane.sat4envi.imgw.pl") or ("", "")
     tkn = token.get_or_request_token(email, pwd)
     print(f'token is: {tkn}')
+    prds = products.get_products(tkn)
+    print('proucts:')
+    print(prds)
     return 0
 
 

@@ -1,4 +1,4 @@
-# py4envi_openapi_client.SearchApi
+# py4envi_py4envi_openapi_client.SearchApi
 
 All URIs are relative to *https://dane.sat4envi.imgw.pl*
 
@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **get_count**
-> int get_count(UNKNOWN_PARAMETER_NAME6)
+> int get_count(product_type)
 
 Get count of total scene results
 
@@ -18,12 +18,12 @@ Get count of total scene results
 * Bearer (JWT) Authentication (bearer-token):
 ```python
 import time
-import py4envi_openapi_client
-from py4envi_openapi_client.api import search_api
+import py4envi_py4envi_openapi_client
+from py4envi_py4envi_openapi_client.api import search_api
 from pprint import pprint
 # Defining the host is optional and defaults to https://dane.sat4envi.imgw.pl
 # See configuration.py for a list of all supported configuration parameters.
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     host = "https://dane.sat4envi.imgw.pl"
 )
 
@@ -33,47 +33,51 @@ configuration = py4envi_openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer-token
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with py4envi_openapi_client.ApiClient(configuration) as api_client:
+with py4envi_py4envi_openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = search_api.SearchApi(api_client)
-    UNKNOWN_PARAMETER_NAME6 =  #  | 
-    UNKNOWN_PARAMETER_NAME =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME2 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME3 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME4 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME5 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME7 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME8 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME9 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME10 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME11 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME12 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME13 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME14 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME15 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME16 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME17 =  #  |  (optional)
+    product_type = "productType_example" # str | 
+    sensing_from = "sensingFrom_example" # str |  (optional)
+    sensing_to = "sensingTo_example" # str |  (optional)
+    ingestion_from = "ingestionFrom_example" # str |  (optional)
+    ingestion_to = "ingestionTo_example" # str |  (optional)
+    satellite_platform = "satellitePlatform_example" # str |  (optional)
+    processing_level = "processingLevel_example" # str |  (optional)
+    polarisation = "polarisation_example" # str |  (optional)
+    sensor_mode = "sensorMode_example" # str |  (optional)
+    relative_orbit_number = "relativeOrbitNumber_example" # str |  (optional)
+    absolute_orbit_number = "absoluteOrbitNumber_example" # str |  (optional)
+    collection = "collection_example" # str |  (optional)
+    timeliness = "timeliness_example" # str |  (optional)
+    instrument = "instrument_example" # str |  (optional)
+    footprint = "footprint_example" # str |  (optional)
+    product_level = "productLevel_example" # str |  (optional)
+    cloud_cover = "cloudCover_example" # str |  (optional)
+    sort_by = "sortBy_example" # str |  (optional)
+    order = "order_example" # str |  (optional)
+    limit = "limit_example" # str |  (optional)
+    offset = "offset_example" # str |  (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Get count of total scene results
-        api_response = api_instance.get_count(UNKNOWN_PARAMETER_NAME6)
+        api_response = api_instance.get_count(product_type)
         pprint(api_response)
-    except py4envi_openapi_client.ApiException as e:
+    except py4envi_py4envi_openapi_client.ApiException as e:
         print("Exception when calling SearchApi->get_count: %s\n" % e)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Get count of total scene results
-        api_response = api_instance.get_count(UNKNOWN_PARAMETER_NAME6, UNKNOWN_PARAMETER_NAME=UNKNOWN_PARAMETER_NAME, UNKNOWN_PARAMETER_NAME2=UNKNOWN_PARAMETER_NAME2, UNKNOWN_PARAMETER_NAME3=UNKNOWN_PARAMETER_NAME3, UNKNOWN_PARAMETER_NAME4=UNKNOWN_PARAMETER_NAME4, UNKNOWN_PARAMETER_NAME5=UNKNOWN_PARAMETER_NAME5, UNKNOWN_PARAMETER_NAME7=UNKNOWN_PARAMETER_NAME7, UNKNOWN_PARAMETER_NAME8=UNKNOWN_PARAMETER_NAME8, UNKNOWN_PARAMETER_NAME9=UNKNOWN_PARAMETER_NAME9, UNKNOWN_PARAMETER_NAME10=UNKNOWN_PARAMETER_NAME10, UNKNOWN_PARAMETER_NAME11=UNKNOWN_PARAMETER_NAME11, UNKNOWN_PARAMETER_NAME12=UNKNOWN_PARAMETER_NAME12, UNKNOWN_PARAMETER_NAME13=UNKNOWN_PARAMETER_NAME13, UNKNOWN_PARAMETER_NAME14=UNKNOWN_PARAMETER_NAME14, UNKNOWN_PARAMETER_NAME15=UNKNOWN_PARAMETER_NAME15, UNKNOWN_PARAMETER_NAME16=UNKNOWN_PARAMETER_NAME16, UNKNOWN_PARAMETER_NAME17=UNKNOWN_PARAMETER_NAME17)
+        api_response = api_instance.get_count(product_type, sensing_from=sensing_from, sensing_to=sensing_to, ingestion_from=ingestion_from, ingestion_to=ingestion_to, satellite_platform=satellite_platform, processing_level=processing_level, polarisation=polarisation, sensor_mode=sensor_mode, relative_orbit_number=relative_orbit_number, absolute_orbit_number=absolute_orbit_number, collection=collection, timeliness=timeliness, instrument=instrument, footprint=footprint, product_level=product_level, cloud_cover=cloud_cover, sort_by=sort_by, order=order, limit=limit, offset=offset)
         pprint(api_response)
-    except py4envi_openapi_client.ApiException as e:
+    except py4envi_py4envi_openapi_client.ApiException as e:
         print("Exception when calling SearchApi->get_count: %s\n" % e)
 ```
 
@@ -82,23 +86,27 @@ with py4envi_openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME6** | ****|  |
- **UNKNOWN_PARAMETER_NAME** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME2** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME3** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME4** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME5** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME7** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME8** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME9** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME10** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME11** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME12** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME13** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME14** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME15** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME16** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME17** | ****|  | [optional]
+ **product_type** | **str**|  |
+ **sensing_from** | **str**|  | [optional]
+ **sensing_to** | **str**|  | [optional]
+ **ingestion_from** | **str**|  | [optional]
+ **ingestion_to** | **str**|  | [optional]
+ **satellite_platform** | **str**|  | [optional]
+ **processing_level** | **str**|  | [optional]
+ **polarisation** | **str**|  | [optional]
+ **sensor_mode** | **str**|  | [optional]
+ **relative_orbit_number** | **str**|  | [optional]
+ **absolute_orbit_number** | **str**|  | [optional]
+ **collection** | **str**|  | [optional]
+ **timeliness** | **str**|  | [optional]
+ **instrument** | **str**|  | [optional]
+ **footprint** | **str**|  | [optional]
+ **product_level** | **str**|  | [optional]
+ **cloud_cover** | **str**|  | [optional]
+ **sort_by** | **str**|  | [optional]
+ **order** | **str**|  | [optional]
+ **limit** | **str**|  | [optional]
+ **offset** | **str**|  | [optional]
 
 ### Return type
 
@@ -125,7 +133,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_scenes**
-> [SearchResponse] get_scenes(UNKNOWN_PARAMETER_NAME6)
+> [SearchResponse] get_scenes(product_type)
 
 Search for scenes
 
@@ -134,13 +142,13 @@ Search for scenes
 * Bearer (JWT) Authentication (bearer-token):
 ```python
 import time
-import py4envi_openapi_client
-from py4envi_openapi_client.api import search_api
-from py4envi_openapi_client.model.search_response import SearchResponse
+import py4envi_py4envi_openapi_client
+from py4envi_py4envi_openapi_client.api import search_api
+from py4envi_py4envi_openapi_client.model.search_response import SearchResponse
 from pprint import pprint
 # Defining the host is optional and defaults to https://dane.sat4envi.imgw.pl
 # See configuration.py for a list of all supported configuration parameters.
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     host = "https://dane.sat4envi.imgw.pl"
 )
 
@@ -150,51 +158,51 @@ configuration = py4envi_openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer-token
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with py4envi_openapi_client.ApiClient(configuration) as api_client:
+with py4envi_py4envi_openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = search_api.SearchApi(api_client)
-    UNKNOWN_PARAMETER_NAME6 =  #  | 
-    UNKNOWN_PARAMETER_NAME =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME2 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME3 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME4 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME5 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME7 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME8 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME9 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME10 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME11 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME12 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME13 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME14 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME15 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME16 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME17 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME18 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME19 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME20 =  #  |  (optional)
-    UNKNOWN_PARAMETER_NAME21 =  #  |  (optional)
+    product_type = "productType_example" # str | 
+    sensing_from = "sensingFrom_example" # str |  (optional)
+    sensing_to = "sensingTo_example" # str |  (optional)
+    ingestion_from = "ingestionFrom_example" # str |  (optional)
+    ingestion_to = "ingestionTo_example" # str |  (optional)
+    satellite_platform = "satellitePlatform_example" # str |  (optional)
+    processing_level = "processingLevel_example" # str |  (optional)
+    polarisation = "polarisation_example" # str |  (optional)
+    sensor_mode = "sensorMode_example" # str |  (optional)
+    relative_orbit_number = "relativeOrbitNumber_example" # str |  (optional)
+    absolute_orbit_number = "absoluteOrbitNumber_example" # str |  (optional)
+    collection = "collection_example" # str |  (optional)
+    timeliness = "timeliness_example" # str |  (optional)
+    instrument = "instrument_example" # str |  (optional)
+    footprint = "footprint_example" # str |  (optional)
+    product_level = "productLevel_example" # str |  (optional)
+    cloud_cover = "cloudCover_example" # str |  (optional)
+    sort_by = "sortBy_example" # str |  (optional)
+    order = "order_example" # str |  (optional)
+    limit = "limit_example" # str |  (optional)
+    offset = "offset_example" # str |  (optional)
 
     # example passing only required values which don't have defaults set
     try:
         # Search for scenes
-        api_response = api_instance.get_scenes(UNKNOWN_PARAMETER_NAME6)
+        api_response = api_instance.get_scenes(product_type)
         pprint(api_response)
-    except py4envi_openapi_client.ApiException as e:
+    except py4envi_py4envi_openapi_client.ApiException as e:
         print("Exception when calling SearchApi->get_scenes: %s\n" % e)
 
     # example passing only required values which don't have defaults set
     # and optional values
     try:
         # Search for scenes
-        api_response = api_instance.get_scenes(UNKNOWN_PARAMETER_NAME6, UNKNOWN_PARAMETER_NAME=UNKNOWN_PARAMETER_NAME, UNKNOWN_PARAMETER_NAME2=UNKNOWN_PARAMETER_NAME2, UNKNOWN_PARAMETER_NAME3=UNKNOWN_PARAMETER_NAME3, UNKNOWN_PARAMETER_NAME4=UNKNOWN_PARAMETER_NAME4, UNKNOWN_PARAMETER_NAME5=UNKNOWN_PARAMETER_NAME5, UNKNOWN_PARAMETER_NAME7=UNKNOWN_PARAMETER_NAME7, UNKNOWN_PARAMETER_NAME8=UNKNOWN_PARAMETER_NAME8, UNKNOWN_PARAMETER_NAME9=UNKNOWN_PARAMETER_NAME9, UNKNOWN_PARAMETER_NAME10=UNKNOWN_PARAMETER_NAME10, UNKNOWN_PARAMETER_NAME11=UNKNOWN_PARAMETER_NAME11, UNKNOWN_PARAMETER_NAME12=UNKNOWN_PARAMETER_NAME12, UNKNOWN_PARAMETER_NAME13=UNKNOWN_PARAMETER_NAME13, UNKNOWN_PARAMETER_NAME14=UNKNOWN_PARAMETER_NAME14, UNKNOWN_PARAMETER_NAME15=UNKNOWN_PARAMETER_NAME15, UNKNOWN_PARAMETER_NAME16=UNKNOWN_PARAMETER_NAME16, UNKNOWN_PARAMETER_NAME17=UNKNOWN_PARAMETER_NAME17, UNKNOWN_PARAMETER_NAME18=UNKNOWN_PARAMETER_NAME18, UNKNOWN_PARAMETER_NAME19=UNKNOWN_PARAMETER_NAME19, UNKNOWN_PARAMETER_NAME20=UNKNOWN_PARAMETER_NAME20, UNKNOWN_PARAMETER_NAME21=UNKNOWN_PARAMETER_NAME21)
+        api_response = api_instance.get_scenes(product_type, sensing_from=sensing_from, sensing_to=sensing_to, ingestion_from=ingestion_from, ingestion_to=ingestion_to, satellite_platform=satellite_platform, processing_level=processing_level, polarisation=polarisation, sensor_mode=sensor_mode, relative_orbit_number=relative_orbit_number, absolute_orbit_number=absolute_orbit_number, collection=collection, timeliness=timeliness, instrument=instrument, footprint=footprint, product_level=product_level, cloud_cover=cloud_cover, sort_by=sort_by, order=order, limit=limit, offset=offset)
         pprint(api_response)
-    except py4envi_openapi_client.ApiException as e:
+    except py4envi_py4envi_openapi_client.ApiException as e:
         print("Exception when calling SearchApi->get_scenes: %s\n" % e)
 ```
 
@@ -203,27 +211,27 @@ with py4envi_openapi_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **UNKNOWN_PARAMETER_NAME6** | ****|  |
- **UNKNOWN_PARAMETER_NAME** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME2** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME3** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME4** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME5** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME7** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME8** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME9** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME10** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME11** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME12** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME13** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME14** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME15** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME16** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME17** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME18** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME19** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME20** | ****|  | [optional]
- **UNKNOWN_PARAMETER_NAME21** | ****|  | [optional]
+ **product_type** | **str**|  |
+ **sensing_from** | **str**|  | [optional]
+ **sensing_to** | **str**|  | [optional]
+ **ingestion_from** | **str**|  | [optional]
+ **ingestion_to** | **str**|  | [optional]
+ **satellite_platform** | **str**|  | [optional]
+ **processing_level** | **str**|  | [optional]
+ **polarisation** | **str**|  | [optional]
+ **sensor_mode** | **str**|  | [optional]
+ **relative_orbit_number** | **str**|  | [optional]
+ **absolute_orbit_number** | **str**|  | [optional]
+ **collection** | **str**|  | [optional]
+ **timeliness** | **str**|  | [optional]
+ **instrument** | **str**|  | [optional]
+ **footprint** | **str**|  | [optional]
+ **product_level** | **str**|  | [optional]
+ **cloud_cover** | **str**|  | [optional]
+ **sort_by** | **str**|  | [optional]
+ **order** | **str**|  | [optional]
+ **limit** | **str**|  | [optional]
+ **offset** | **str**|  | [optional]
 
 ### Return type
 

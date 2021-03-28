@@ -38,7 +38,7 @@ class SearchApi(object):
 
         def __get_count(
             self,
-            UNKNOWN_PARAMETER_NAME6,
+            product_type,
             **kwargs
         ):
             """Get count of total scene results  # noqa: E501
@@ -46,29 +46,33 @@ class SearchApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.get_count(UNKNOWN_PARAMETER_NAME6, async_req=True)
+            >>> thread = api.get_count(product_type, async_req=True)
             >>> result = thread.get()
 
             Args:
-                UNKNOWN_PARAMETER_NAME6 ():
+                product_type (str):
 
             Keyword Args:
-                UNKNOWN_PARAMETER_NAME (): [optional]
-                UNKNOWN_PARAMETER_NAME2 (): [optional]
-                UNKNOWN_PARAMETER_NAME3 (): [optional]
-                UNKNOWN_PARAMETER_NAME4 (): [optional]
-                UNKNOWN_PARAMETER_NAME5 (): [optional]
-                UNKNOWN_PARAMETER_NAME7 (): [optional]
-                UNKNOWN_PARAMETER_NAME8 (): [optional]
-                UNKNOWN_PARAMETER_NAME9 (): [optional]
-                UNKNOWN_PARAMETER_NAME10 (): [optional]
-                UNKNOWN_PARAMETER_NAME11 (): [optional]
-                UNKNOWN_PARAMETER_NAME12 (): [optional]
-                UNKNOWN_PARAMETER_NAME13 (): [optional]
-                UNKNOWN_PARAMETER_NAME14 (): [optional]
-                UNKNOWN_PARAMETER_NAME15 (): [optional]
-                UNKNOWN_PARAMETER_NAME16 (): [optional]
-                UNKNOWN_PARAMETER_NAME17 (): [optional]
+                sensing_from (str): [optional]
+                sensing_to (str): [optional]
+                ingestion_from (str): [optional]
+                ingestion_to (str): [optional]
+                satellite_platform (str): [optional]
+                processing_level (str): [optional]
+                polarisation (str): [optional]
+                sensor_mode (str): [optional]
+                relative_orbit_number (str): [optional]
+                absolute_orbit_number (str): [optional]
+                collection (str): [optional]
+                timeliness (str): [optional]
+                instrument (str): [optional]
+                footprint (str): [optional]
+                product_level (str): [optional]
+                cloud_cover (str): [optional]
+                sort_by (str): [optional]
+                order (str): [optional]
+                limit (str): [optional]
+                offset (str): [optional]
                 _return_http_data_only (bool): response data without head status
                     code and headers. Default is True.
                 _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -113,8 +117,8 @@ class SearchApi(object):
                 '_check_return_type', True
             )
             kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['UNKNOWN_PARAMETER_NAME6'] = \
-                UNKNOWN_PARAMETER_NAME6
+            kwargs['product_type'] = \
+                product_type
             return self.call_with_http_info(**kwargs)
 
         self.get_count = _Endpoint(
@@ -130,26 +134,30 @@ class SearchApi(object):
             },
             params_map={
                 'all': [
-                    'UNKNOWN_PARAMETER_NAME6',
-                    'UNKNOWN_PARAMETER_NAME',
-                    'UNKNOWN_PARAMETER_NAME2',
-                    'UNKNOWN_PARAMETER_NAME3',
-                    'UNKNOWN_PARAMETER_NAME4',
-                    'UNKNOWN_PARAMETER_NAME5',
-                    'UNKNOWN_PARAMETER_NAME7',
-                    'UNKNOWN_PARAMETER_NAME8',
-                    'UNKNOWN_PARAMETER_NAME9',
-                    'UNKNOWN_PARAMETER_NAME10',
-                    'UNKNOWN_PARAMETER_NAME11',
-                    'UNKNOWN_PARAMETER_NAME12',
-                    'UNKNOWN_PARAMETER_NAME13',
-                    'UNKNOWN_PARAMETER_NAME14',
-                    'UNKNOWN_PARAMETER_NAME15',
-                    'UNKNOWN_PARAMETER_NAME16',
-                    'UNKNOWN_PARAMETER_NAME17',
+                    'product_type',
+                    'sensing_from',
+                    'sensing_to',
+                    'ingestion_from',
+                    'ingestion_to',
+                    'satellite_platform',
+                    'processing_level',
+                    'polarisation',
+                    'sensor_mode',
+                    'relative_orbit_number',
+                    'absolute_orbit_number',
+                    'collection',
+                    'timeliness',
+                    'instrument',
+                    'footprint',
+                    'product_level',
+                    'cloud_cover',
+                    'sort_by',
+                    'order',
+                    'limit',
+                    'offset',
                 ],
                 'required': [
-                    'UNKNOWN_PARAMETER_NAME6',
+                    'product_type',
                 ],
                 'nullable': [
                 ],
@@ -164,78 +172,94 @@ class SearchApi(object):
                 'allowed_values': {
                 },
                 'openapi_types': {
-                    'UNKNOWN_PARAMETER_NAME6':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME2':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME3':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME4':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME5':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME7':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME8':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME9':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME10':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME11':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME12':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME13':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME14':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME15':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME16':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME17':
-                        (,),
+                    'product_type':
+                        (str,),
+                    'sensing_from':
+                        (str,),
+                    'sensing_to':
+                        (str,),
+                    'ingestion_from':
+                        (str,),
+                    'ingestion_to':
+                        (str,),
+                    'satellite_platform':
+                        (str,),
+                    'processing_level':
+                        (str,),
+                    'polarisation':
+                        (str,),
+                    'sensor_mode':
+                        (str,),
+                    'relative_orbit_number':
+                        (str,),
+                    'absolute_orbit_number':
+                        (str,),
+                    'collection':
+                        (str,),
+                    'timeliness':
+                        (str,),
+                    'instrument':
+                        (str,),
+                    'footprint':
+                        (str,),
+                    'product_level':
+                        (str,),
+                    'cloud_cover':
+                        (str,),
+                    'sort_by':
+                        (str,),
+                    'order':
+                        (str,),
+                    'limit':
+                        (str,),
+                    'offset':
+                        (str,),
                 },
                 'attribute_map': {
-                    'UNKNOWN_PARAMETER_NAME6': 'productType',
-                    'UNKNOWN_PARAMETER_NAME': 'sensingFrom',
-                    'UNKNOWN_PARAMETER_NAME2': 'sensingTo',
-                    'UNKNOWN_PARAMETER_NAME3': 'ingestionFrom',
-                    'UNKNOWN_PARAMETER_NAME4': 'ingestionTo',
-                    'UNKNOWN_PARAMETER_NAME5': 'satellitePlatform',
-                    'UNKNOWN_PARAMETER_NAME7': 'processingLevel',
-                    'UNKNOWN_PARAMETER_NAME8': 'polarisation',
-                    'UNKNOWN_PARAMETER_NAME9': 'sensorMode',
-                    'UNKNOWN_PARAMETER_NAME10': 'relativeOrbitNumber',
-                    'UNKNOWN_PARAMETER_NAME11': 'absoluteOrbitNumber',
-                    'UNKNOWN_PARAMETER_NAME12': 'collection',
-                    'UNKNOWN_PARAMETER_NAME13': 'timeliness',
-                    'UNKNOWN_PARAMETER_NAME14': 'instrument',
-                    'UNKNOWN_PARAMETER_NAME15': 'footprint',
-                    'UNKNOWN_PARAMETER_NAME16': 'productLevel',
-                    'UNKNOWN_PARAMETER_NAME17': 'cloudCover',
+                    'product_type': 'productType',
+                    'sensing_from': 'sensingFrom',
+                    'sensing_to': 'sensingTo',
+                    'ingestion_from': 'ingestionFrom',
+                    'ingestion_to': 'ingestionTo',
+                    'satellite_platform': 'satellitePlatform',
+                    'processing_level': 'processingLevel',
+                    'polarisation': 'polarisation',
+                    'sensor_mode': 'sensorMode',
+                    'relative_orbit_number': 'relativeOrbitNumber',
+                    'absolute_orbit_number': 'absoluteOrbitNumber',
+                    'collection': 'collection',
+                    'timeliness': 'timeliness',
+                    'instrument': 'instrument',
+                    'footprint': 'footprint',
+                    'product_level': 'productLevel',
+                    'cloud_cover': 'cloudCover',
+                    'sort_by': 'sortBy',
+                    'order': 'order',
+                    'limit': 'limit',
+                    'offset': 'offset',
                 },
                 'location_map': {
-                    'UNKNOWN_PARAMETER_NAME6': 'query',
-                    'UNKNOWN_PARAMETER_NAME': 'query',
-                    'UNKNOWN_PARAMETER_NAME2': 'query',
-                    'UNKNOWN_PARAMETER_NAME3': 'query',
-                    'UNKNOWN_PARAMETER_NAME4': 'query',
-                    'UNKNOWN_PARAMETER_NAME5': 'query',
-                    'UNKNOWN_PARAMETER_NAME7': 'query',
-                    'UNKNOWN_PARAMETER_NAME8': 'query',
-                    'UNKNOWN_PARAMETER_NAME9': 'query',
-                    'UNKNOWN_PARAMETER_NAME10': 'query',
-                    'UNKNOWN_PARAMETER_NAME11': 'query',
-                    'UNKNOWN_PARAMETER_NAME12': 'query',
-                    'UNKNOWN_PARAMETER_NAME13': 'query',
-                    'UNKNOWN_PARAMETER_NAME14': 'query',
-                    'UNKNOWN_PARAMETER_NAME15': 'query',
-                    'UNKNOWN_PARAMETER_NAME16': 'query',
-                    'UNKNOWN_PARAMETER_NAME17': 'query',
+                    'product_type': 'query',
+                    'sensing_from': 'query',
+                    'sensing_to': 'query',
+                    'ingestion_from': 'query',
+                    'ingestion_to': 'query',
+                    'satellite_platform': 'query',
+                    'processing_level': 'query',
+                    'polarisation': 'query',
+                    'sensor_mode': 'query',
+                    'relative_orbit_number': 'query',
+                    'absolute_orbit_number': 'query',
+                    'collection': 'query',
+                    'timeliness': 'query',
+                    'instrument': 'query',
+                    'footprint': 'query',
+                    'product_level': 'query',
+                    'cloud_cover': 'query',
+                    'sort_by': 'query',
+                    'order': 'query',
+                    'limit': 'query',
+                    'offset': 'query',
                 },
                 'collection_format_map': {
                 }
@@ -252,7 +276,7 @@ class SearchApi(object):
 
         def __get_scenes(
             self,
-            UNKNOWN_PARAMETER_NAME6,
+            product_type,
             **kwargs
         ):
             """Search for scenes  # noqa: E501
@@ -260,33 +284,33 @@ class SearchApi(object):
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
 
-            >>> thread = api.get_scenes(UNKNOWN_PARAMETER_NAME6, async_req=True)
+            >>> thread = api.get_scenes(product_type, async_req=True)
             >>> result = thread.get()
 
             Args:
-                UNKNOWN_PARAMETER_NAME6 ():
+                product_type (str):
 
             Keyword Args:
-                UNKNOWN_PARAMETER_NAME (): [optional]
-                UNKNOWN_PARAMETER_NAME2 (): [optional]
-                UNKNOWN_PARAMETER_NAME3 (): [optional]
-                UNKNOWN_PARAMETER_NAME4 (): [optional]
-                UNKNOWN_PARAMETER_NAME5 (): [optional]
-                UNKNOWN_PARAMETER_NAME7 (): [optional]
-                UNKNOWN_PARAMETER_NAME8 (): [optional]
-                UNKNOWN_PARAMETER_NAME9 (): [optional]
-                UNKNOWN_PARAMETER_NAME10 (): [optional]
-                UNKNOWN_PARAMETER_NAME11 (): [optional]
-                UNKNOWN_PARAMETER_NAME12 (): [optional]
-                UNKNOWN_PARAMETER_NAME13 (): [optional]
-                UNKNOWN_PARAMETER_NAME14 (): [optional]
-                UNKNOWN_PARAMETER_NAME15 (): [optional]
-                UNKNOWN_PARAMETER_NAME16 (): [optional]
-                UNKNOWN_PARAMETER_NAME17 (): [optional]
-                UNKNOWN_PARAMETER_NAME18 (): [optional]
-                UNKNOWN_PARAMETER_NAME19 (): [optional]
-                UNKNOWN_PARAMETER_NAME20 (): [optional]
-                UNKNOWN_PARAMETER_NAME21 (): [optional]
+                sensing_from (str): [optional]
+                sensing_to (str): [optional]
+                ingestion_from (str): [optional]
+                ingestion_to (str): [optional]
+                satellite_platform (str): [optional]
+                processing_level (str): [optional]
+                polarisation (str): [optional]
+                sensor_mode (str): [optional]
+                relative_orbit_number (str): [optional]
+                absolute_orbit_number (str): [optional]
+                collection (str): [optional]
+                timeliness (str): [optional]
+                instrument (str): [optional]
+                footprint (str): [optional]
+                product_level (str): [optional]
+                cloud_cover (str): [optional]
+                sort_by (str): [optional]
+                order (str): [optional]
+                limit (str): [optional]
+                offset (str): [optional]
                 _return_http_data_only (bool): response data without head status
                     code and headers. Default is True.
                 _preload_content (bool): if False, the urllib3.HTTPResponse object
@@ -331,8 +355,8 @@ class SearchApi(object):
                 '_check_return_type', True
             )
             kwargs['_host_index'] = kwargs.get('_host_index')
-            kwargs['UNKNOWN_PARAMETER_NAME6'] = \
-                UNKNOWN_PARAMETER_NAME6
+            kwargs['product_type'] = \
+                product_type
             return self.call_with_http_info(**kwargs)
 
         self.get_scenes = _Endpoint(
@@ -348,30 +372,30 @@ class SearchApi(object):
             },
             params_map={
                 'all': [
-                    'UNKNOWN_PARAMETER_NAME6',
-                    'UNKNOWN_PARAMETER_NAME',
-                    'UNKNOWN_PARAMETER_NAME2',
-                    'UNKNOWN_PARAMETER_NAME3',
-                    'UNKNOWN_PARAMETER_NAME4',
-                    'UNKNOWN_PARAMETER_NAME5',
-                    'UNKNOWN_PARAMETER_NAME7',
-                    'UNKNOWN_PARAMETER_NAME8',
-                    'UNKNOWN_PARAMETER_NAME9',
-                    'UNKNOWN_PARAMETER_NAME10',
-                    'UNKNOWN_PARAMETER_NAME11',
-                    'UNKNOWN_PARAMETER_NAME12',
-                    'UNKNOWN_PARAMETER_NAME13',
-                    'UNKNOWN_PARAMETER_NAME14',
-                    'UNKNOWN_PARAMETER_NAME15',
-                    'UNKNOWN_PARAMETER_NAME16',
-                    'UNKNOWN_PARAMETER_NAME17',
-                    'UNKNOWN_PARAMETER_NAME18',
-                    'UNKNOWN_PARAMETER_NAME19',
-                    'UNKNOWN_PARAMETER_NAME20',
-                    'UNKNOWN_PARAMETER_NAME21',
+                    'product_type',
+                    'sensing_from',
+                    'sensing_to',
+                    'ingestion_from',
+                    'ingestion_to',
+                    'satellite_platform',
+                    'processing_level',
+                    'polarisation',
+                    'sensor_mode',
+                    'relative_orbit_number',
+                    'absolute_orbit_number',
+                    'collection',
+                    'timeliness',
+                    'instrument',
+                    'footprint',
+                    'product_level',
+                    'cloud_cover',
+                    'sort_by',
+                    'order',
+                    'limit',
+                    'offset',
                 ],
                 'required': [
-                    'UNKNOWN_PARAMETER_NAME6',
+                    'product_type',
                 ],
                 'nullable': [
                 ],
@@ -386,94 +410,94 @@ class SearchApi(object):
                 'allowed_values': {
                 },
                 'openapi_types': {
-                    'UNKNOWN_PARAMETER_NAME6':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME2':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME3':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME4':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME5':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME7':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME8':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME9':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME10':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME11':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME12':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME13':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME14':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME15':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME16':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME17':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME18':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME19':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME20':
-                        (,),
-                    'UNKNOWN_PARAMETER_NAME21':
-                        (,),
+                    'product_type':
+                        (str,),
+                    'sensing_from':
+                        (str,),
+                    'sensing_to':
+                        (str,),
+                    'ingestion_from':
+                        (str,),
+                    'ingestion_to':
+                        (str,),
+                    'satellite_platform':
+                        (str,),
+                    'processing_level':
+                        (str,),
+                    'polarisation':
+                        (str,),
+                    'sensor_mode':
+                        (str,),
+                    'relative_orbit_number':
+                        (str,),
+                    'absolute_orbit_number':
+                        (str,),
+                    'collection':
+                        (str,),
+                    'timeliness':
+                        (str,),
+                    'instrument':
+                        (str,),
+                    'footprint':
+                        (str,),
+                    'product_level':
+                        (str,),
+                    'cloud_cover':
+                        (str,),
+                    'sort_by':
+                        (str,),
+                    'order':
+                        (str,),
+                    'limit':
+                        (str,),
+                    'offset':
+                        (str,),
                 },
                 'attribute_map': {
-                    'UNKNOWN_PARAMETER_NAME6': 'productType',
-                    'UNKNOWN_PARAMETER_NAME': 'sensingFrom',
-                    'UNKNOWN_PARAMETER_NAME2': 'sensingTo',
-                    'UNKNOWN_PARAMETER_NAME3': 'ingestionFrom',
-                    'UNKNOWN_PARAMETER_NAME4': 'ingestionTo',
-                    'UNKNOWN_PARAMETER_NAME5': 'satellitePlatform',
-                    'UNKNOWN_PARAMETER_NAME7': 'processingLevel',
-                    'UNKNOWN_PARAMETER_NAME8': 'polarisation',
-                    'UNKNOWN_PARAMETER_NAME9': 'sensorMode',
-                    'UNKNOWN_PARAMETER_NAME10': 'relativeOrbitNumber',
-                    'UNKNOWN_PARAMETER_NAME11': 'absoluteOrbitNumber',
-                    'UNKNOWN_PARAMETER_NAME12': 'collection',
-                    'UNKNOWN_PARAMETER_NAME13': 'timeliness',
-                    'UNKNOWN_PARAMETER_NAME14': 'instrument',
-                    'UNKNOWN_PARAMETER_NAME15': 'footprint',
-                    'UNKNOWN_PARAMETER_NAME16': 'productLevel',
-                    'UNKNOWN_PARAMETER_NAME17': 'cloudCover',
-                    'UNKNOWN_PARAMETER_NAME18': 'sortBy',
-                    'UNKNOWN_PARAMETER_NAME19': 'order',
-                    'UNKNOWN_PARAMETER_NAME20': 'limit',
-                    'UNKNOWN_PARAMETER_NAME21': 'offset',
+                    'product_type': 'productType',
+                    'sensing_from': 'sensingFrom',
+                    'sensing_to': 'sensingTo',
+                    'ingestion_from': 'ingestionFrom',
+                    'ingestion_to': 'ingestionTo',
+                    'satellite_platform': 'satellitePlatform',
+                    'processing_level': 'processingLevel',
+                    'polarisation': 'polarisation',
+                    'sensor_mode': 'sensorMode',
+                    'relative_orbit_number': 'relativeOrbitNumber',
+                    'absolute_orbit_number': 'absoluteOrbitNumber',
+                    'collection': 'collection',
+                    'timeliness': 'timeliness',
+                    'instrument': 'instrument',
+                    'footprint': 'footprint',
+                    'product_level': 'productLevel',
+                    'cloud_cover': 'cloudCover',
+                    'sort_by': 'sortBy',
+                    'order': 'order',
+                    'limit': 'limit',
+                    'offset': 'offset',
                 },
                 'location_map': {
-                    'UNKNOWN_PARAMETER_NAME6': 'query',
-                    'UNKNOWN_PARAMETER_NAME': 'query',
-                    'UNKNOWN_PARAMETER_NAME2': 'query',
-                    'UNKNOWN_PARAMETER_NAME3': 'query',
-                    'UNKNOWN_PARAMETER_NAME4': 'query',
-                    'UNKNOWN_PARAMETER_NAME5': 'query',
-                    'UNKNOWN_PARAMETER_NAME7': 'query',
-                    'UNKNOWN_PARAMETER_NAME8': 'query',
-                    'UNKNOWN_PARAMETER_NAME9': 'query',
-                    'UNKNOWN_PARAMETER_NAME10': 'query',
-                    'UNKNOWN_PARAMETER_NAME11': 'query',
-                    'UNKNOWN_PARAMETER_NAME12': 'query',
-                    'UNKNOWN_PARAMETER_NAME13': 'query',
-                    'UNKNOWN_PARAMETER_NAME14': 'query',
-                    'UNKNOWN_PARAMETER_NAME15': 'query',
-                    'UNKNOWN_PARAMETER_NAME16': 'query',
-                    'UNKNOWN_PARAMETER_NAME17': 'query',
-                    'UNKNOWN_PARAMETER_NAME18': 'query',
-                    'UNKNOWN_PARAMETER_NAME19': 'query',
-                    'UNKNOWN_PARAMETER_NAME20': 'query',
-                    'UNKNOWN_PARAMETER_NAME21': 'query',
+                    'product_type': 'query',
+                    'sensing_from': 'query',
+                    'sensing_to': 'query',
+                    'ingestion_from': 'query',
+                    'ingestion_to': 'query',
+                    'satellite_platform': 'query',
+                    'processing_level': 'query',
+                    'polarisation': 'query',
+                    'sensor_mode': 'query',
+                    'relative_orbit_number': 'query',
+                    'absolute_orbit_number': 'query',
+                    'collection': 'query',
+                    'timeliness': 'query',
+                    'instrument': 'query',
+                    'footprint': 'query',
+                    'product_level': 'query',
+                    'cloud_cover': 'query',
+                    'sort_by': 'query',
+                    'order': 'query',
+                    'limit': 'query',
+                    'offset': 'query',
                 },
                 'collection_format_map': {
                 }

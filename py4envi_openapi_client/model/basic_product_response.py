@@ -77,12 +77,12 @@ class BasicProductResponse(ModelNormal):
         """
         lazy_import()
         return {
-            'display_name': (str,),  # noqa: E501
             'favourite': (bool,),  # noqa: E501
-            'rank': (int,),  # noqa: E501
-            'product_category': (BasicProductCategoryResponse,),  # noqa: E501
             'name': (str,),  # noqa: E501
             'id': (int,),  # noqa: E501
+            'display_name': (str,),  # noqa: E501
+            'product_category': (BasicProductCategoryResponse,),  # noqa: E501
+            'rank': (int,),  # noqa: E501
         }
 
     @cached_property
@@ -91,12 +91,12 @@ class BasicProductResponse(ModelNormal):
 
 
     attribute_map = {
-        'display_name': 'displayName',  # noqa: E501
         'favourite': 'favourite',  # noqa: E501
-        'rank': 'rank',  # noqa: E501
-        'product_category': 'productCategory',  # noqa: E501
         'name': 'name',  # noqa: E501
         'id': 'id',  # noqa: E501
+        'display_name': 'displayName',  # noqa: E501
+        'product_category': 'productCategory',  # noqa: E501
+        'rank': 'rank',  # noqa: E501
     }
 
     _composed_schemas = {}
@@ -145,12 +145,12 @@ class BasicProductResponse(ModelNormal):
                                 Animal class but this time we won't travel
                                 through its discriminator because we passed in
                                 _visited_composed_classes = (Animal,)
-            display_name (str): [optional]  # noqa: E501
             favourite (bool): [optional]  # noqa: E501
-            rank (int): [optional]  # noqa: E501
-            product_category (BasicProductCategoryResponse): [optional]  # noqa: E501
             name (str): [optional]  # noqa: E501
             id (int): [optional]  # noqa: E501
+            display_name (str): [optional]  # noqa: E501
+            product_category (BasicProductCategoryResponse): [optional]  # noqa: E501
+            rank (int): [optional]  # noqa: E501
         """
 
         _check_type = kwargs.pop('_check_type', True)

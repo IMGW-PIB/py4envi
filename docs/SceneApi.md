@@ -1,4 +1,4 @@
-# py4envi_openapi_client.SceneApi
+# py4envi_py4envi_openapi_client.SceneApi
 
 All URIs are relative to *https://dane.sat4envi.imgw.pl*
 
@@ -17,12 +17,12 @@ Redirect to a presigned download url for a scene's artifact
 * Bearer (JWT) Authentication (bearer-token):
 ```python
 import time
-import py4envi_openapi_client
-from py4envi_openapi_client.api import scene_api
+import py4envi_py4envi_openapi_client
+from py4envi_py4envi_openapi_client.api import scene_api
 from pprint import pprint
 # Defining the host is optional and defaults to https://dane.sat4envi.imgw.pl
 # See configuration.py for a list of all supported configuration parameters.
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     host = "https://dane.sat4envi.imgw.pl"
 )
 
@@ -32,12 +32,12 @@ configuration = py4envi_openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer-token
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with py4envi_openapi_client.ApiClient(configuration) as api_client:
+with py4envi_py4envi_openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = scene_api.SceneApi(api_client)
     id = 1 # int | 
@@ -47,7 +47,7 @@ with py4envi_openapi_client.ApiClient(configuration) as api_client:
     try:
         # Redirect to a presigned download url for a scene's artifact
         api_instance.generate_download_link(id, artifact_name)
-    except py4envi_openapi_client.ApiException as e:
+    except py4envi_py4envi_openapi_client.ApiException as e:
         print("Exception when calling SceneApi->generate_download_link: %s\n" % e)
 ```
 
@@ -76,9 +76,9 @@ void (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**403** | Forbidden |  -  |
 **404** | Scene or artifact not found |  -  |
 **303** | Redirect to the presigned download url |  * Location - The presigned download url <br>  |
+**403** | Forbidden |  -  |
 **401** | Unauthenticated |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -1,4 +1,4 @@
-# py4envi_openapi_client.AuthApi
+# py4envi_py4envi_openapi_client.AuthApi
 
 All URIs are relative to *https://dane.sat4envi.imgw.pl*
 
@@ -17,14 +17,14 @@ Get authorization token
 * Bearer (JWT) Authentication (bearer-token):
 ```python
 import time
-import py4envi_openapi_client
-from py4envi_openapi_client.api import auth_api
-from py4envi_openapi_client.model.token_response import TokenResponse
-from py4envi_openapi_client.model.login_request import LoginRequest
+import py4envi_py4envi_openapi_client
+from py4envi_py4envi_openapi_client.api import auth_api
+from py4envi_py4envi_openapi_client.model.token_response import TokenResponse
+from py4envi_py4envi_openapi_client.model.login_request import LoginRequest
 from pprint import pprint
 # Defining the host is optional and defaults to https://dane.sat4envi.imgw.pl
 # See configuration.py for a list of all supported configuration parameters.
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     host = "https://dane.sat4envi.imgw.pl"
 )
 
@@ -34,12 +34,12 @@ configuration = py4envi_openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization (JWT): bearer-token
-configuration = py4envi_openapi_client.Configuration(
+configuration = py4envi_py4envi_openapi_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
 
 # Enter a context with an instance of the API client
-with py4envi_openapi_client.ApiClient(configuration) as api_client:
+with py4envi_py4envi_openapi_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = auth_api.AuthApi(api_client)
     login_request = LoginRequest(
@@ -52,7 +52,7 @@ with py4envi_openapi_client.ApiClient(configuration) as api_client:
         # Get authorization token
         api_response = api_instance.token(login_request)
         pprint(api_response)
-    except py4envi_openapi_client.ApiException as e:
+    except py4envi_py4envi_openapi_client.ApiException as e:
         print("Exception when calling AuthApi->token: %s\n" % e)
 ```
 
@@ -81,9 +81,9 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **403** | Forbidden: Account disabled (not activated) |  -  |
+**400** | Incorrect request |  -  |
 **401** | Unauthenticated: Incorrect credentials or account doesn&#39;t exist |  -  |
 **200** | OK |  -  |
-**400** | Incorrect request |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
