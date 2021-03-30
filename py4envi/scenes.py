@@ -10,8 +10,6 @@ from py4envi_openapi_client.apis import SceneApi
 
 logger = logging.getLogger(__name__)
 
-# TODO test
-
 
 @dataclass
 class SceneArtifact:
@@ -52,10 +50,14 @@ def _filename_from_url(url: str) -> str:
 def get_scene_artifact(token: str,
                        id: int,
                        artifact_name: str,
-                       product_api_fun: Callable[[py4envi_openapi_client.ApiClient],
-                                                 SceneApi] = lambda c: SceneApi(c),
+                       scene_api_fun: Callable[[py4envi_openapi_client.ApiClient],
+                                               SceneApi] = lambda c: SceneApi(c),
                        ) -> Optional[SceneArtifact]:
-    response = _get_redirection(token, id, artifact_name, product_api_fun)
+    """
+    returns a scene artifact object containing id and artifact name (those requested) as well as
+    filename and download link
+    """
+    response = _get_redirection(token, id, artifact_name, scene_api_fun)
     if response is None:
         logger.error("response was None")
         return None
