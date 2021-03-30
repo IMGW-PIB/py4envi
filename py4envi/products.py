@@ -26,7 +26,7 @@ def _get_raw_products(token: str,
     """
     requests and returns a list of all products accessible through this api
     """
-    logger.info("Requesting new api token")
+    logger.debug("Requesting all products")
     configuration = py4envi_openapi_client.Configuration(
         access_token=token,
     )

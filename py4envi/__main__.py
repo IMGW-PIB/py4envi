@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 import atexit
-from . import token, products
+from . import token, products, scenes
 
 
 def configure_logging():
@@ -24,6 +24,9 @@ def run() -> int:
     prds = products.get_products(tkn)
     print('proucts:')
     print(prds)
+    scene = scenes.get_scene_artifact(tkn, 6675430, "product_archive")
+    print("scene")
+    print(scene)
     return 0
 
 
