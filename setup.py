@@ -5,6 +5,7 @@ NAME = "py4envi"
 REQUIRES = [
     "urllib3 >= 1.25.3",
     "python-dateutil",
+    "Shapely >= 1.7.1",
 ]
 
 setup(

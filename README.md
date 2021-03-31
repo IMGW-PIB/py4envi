@@ -3,6 +3,5 @@
 In progress
 
 ## TODO
-- custom types and __str__ methods in search api
-- tests for search api
-- ???
+- downloading and "with" syntax for products
+- cli tool

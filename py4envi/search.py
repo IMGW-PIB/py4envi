@@ -1,10 +1,16 @@
 import logging
+from datetime import datetime
 from typing import Callable, List, Optional, Dict, Union, Any, cast
+from shapely.geometry import shape
 import py4envi_openapi_client
 from py4envi_openapi_client.apis import SearchApi
 from py4envi_openapi_client.models import SearchResponse
 
 logger = logging.getLogger(__name__)
+
+def _geojson_to_wkt(gjs: Dict[str, Any])->str:
+    geom = shape(gjs)
+    return geom.wkt
 
 
 def _clean_api_arguments(args: Dict[str, Any]) -> Dict[str, str]:
@@ -12,11 +18,23 @@ def _clean_api_arguments(args: Dict[str, Any]) -> Dict[str, str]:
     remove none values and non-api keywords, we cannot pass them, just omit
     also convert to str
     """
+    print(args)
     not_passed = ['token', 'search_api_fun', 'method']
     kwargs = {}
     for k, v in args.items():
         if v is not None and k not in not_passed:
-            kwargs[k] = str(v)
+            if isinstance(v, datetime):
+                s =  v.isoformat()
+                if v.tzinfo is None:
+                    s += 'Z'
+                kwargs[k] = s
+            elif k == 'footprint':
+                kwargs[k] = _geojson_to_wkt(v)
+            elif k == 'order':
+                kwargs[k] = str(v).upper()
+            else:
+                kwargs[k] = str(v)
+    print(kwargs)
     return kwargs
 
 
@@ -25,10 +43,10 @@ def _raw_api(
         token: str,
         product_type: str,
         search_api_fun: Callable[[py4envi_openapi_client.ApiClient], SearchApi],
-        sensing_from: Optional[str] = None,
-        sensing_to: Optional[str] = None,
-        ingestion_from: Optional[str] = None,
-        ingestion_to: Optional[str] = None,
+        sensing_from: Optional[datetime] = None,
+        sensing_to: Optional[datetime] = None,
+        ingestion_from: Optional[datetime] = None,
+        ingestion_to: Optional[datetime] = None,
         satellite_platform: Optional[str] = None,
         processing_level: Optional[str] = None,
         polarisation: Optional[str] = None,
@@ -38,7 +56,7 @@ def _raw_api(
         collection: Optional[str] = None,
         timeliness: Optional[str] = None,
         instrument: Optional[str] = None,
-        footprint: Optional[str] = None,
+        footprint: Optional[Dict[str,Any]] = None,
         product_level: Optional[str] = None,
         cloud_cover: Optional[float] = None,
         sort_by: Optional[str] = None,
@@ -49,8 +67,12 @@ def _raw_api(
     """
     requests a count/list of all artifacts that conform to the specified keywords
     method must be in ['get_count', 'get_scenes']
+    footprint is geojson dict
     """
     kwargs = _clean_api_arguments(locals())
+
+    # validations
+    assert order is None or order in ['ASC', 'DESC']
 
     logger.debug("%s on artifacts", method)
     configuration = py4envi_openapi_client.Configuration(
@@ -71,10 +93,10 @@ def _raw_api(
 def count_artifacts(
     token: str,
     product_type: str,
-    sensing_from: Optional[str] = None,
-    sensing_to: Optional[str] = None,
-    ingestion_from: Optional[str] = None,
-    ingestion_to: Optional[str] = None,
+    sensing_from: Optional[datetime] = None,
+    sensing_to: Optional[datetime] = None,
+    ingestion_from: Optional[datetime] = None,
+    ingestion_to: Optional[datetime] = None,
     satellite_platform: Optional[str] = None,
     processing_level: Optional[str] = None,
     polarisation: Optional[str] = None,
@@ -84,7 +106,7 @@ def count_artifacts(
     collection: Optional[str] = None,
     timeliness: Optional[str] = None,
     instrument: Optional[str] = None,
-    footprint: Optional[str] = None,
+        footprint: Optional[Dict[str,Any]] = None,
     product_level: Optional[str] = None,
     cloud_cover: Optional[float] = None,
     sort_by: Optional[str] = None,
@@ -128,10 +150,10 @@ def count_artifacts(
 def search_artifacts(
     token: str,
     product_type: str,
-    sensing_from: Optional[str] = None,
-    sensing_to: Optional[str] = None,
-    ingestion_from: Optional[str] = None,
-    ingestion_to: Optional[str] = None,
+    sensing_from: Optional[datetime] = None,
+    sensing_to: Optional[datetime] = None,
+    ingestion_from: Optional[datetime] = None,
+    ingestion_to: Optional[datetime] = None,
     satellite_platform: Optional[str] = None,
     processing_level: Optional[str] = None,
     polarisation: Optional[str] = None,
@@ -141,7 +163,7 @@ def search_artifacts(
     collection: Optional[str] = None,
     timeliness: Optional[str] = None,
     instrument: Optional[str] = None,
-    footprint: Optional[str] = None,
+        footprint: Optional[Dict[str,Any]] = None,
     product_level: Optional[str] = None,
     cloud_cover: Optional[float] = None,
     sort_by: Optional[str] = None,
