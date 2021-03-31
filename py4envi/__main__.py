@@ -27,7 +27,7 @@ def run() -> int:
     scene = scenes.get_scene_artifact(tkn, 6675430, "product_archive")
     print("scene")
     print(scene)
-    count = search.count_artifacts(tkn, 'Sentinel-2-L2A')
+    count = search.count_artifacts(tkn, 'Sentinel-2-L2A', cloud_cover=30.1)
     print("count")
     print(count)
     srch = search.search_artifacts(tkn, 'Sentinel-2-L2A', limit=5)
