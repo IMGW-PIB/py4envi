@@ -160,6 +160,7 @@ class SearchApi(object):
                     'product_type',
                 ],
                 'nullable': [
+                    'sensing_from'
                 ],
                 'enum': [
                 ],
