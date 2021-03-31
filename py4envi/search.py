@@ -19,7 +19,7 @@ def _clean_api_arguments(args: Dict[str, Any]) -> Dict[str, str]:
             kwargs[k] = str(v)
     return kwargs
 
-# TODO fix types, custom classes etc
+# TODO fix types, custom classes etc and add tests
 
 
 def _raw_api(
