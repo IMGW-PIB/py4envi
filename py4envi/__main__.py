@@ -25,30 +25,30 @@ def run() -> int:
     gjs = {
         "type": "Polygon",
         "coordinates": [
-          [
             [
-              17.925996780395508,
-              51.42511600068021
-            ],
-            [
-              17.945308685302734,
-              51.42153011340418
-            ],
-            [
-              17.932262420654297,
-              51.43180533674875
-            ],
-            [
-              17.92170524597168,
-              51.4291832337135
-            ],
-            [
-              17.925996780395508,
-              51.42511600068021
+                [
+                    17.925996780395508,
+                    51.42511600068021
+                ],
+                [
+                    17.945308685302734,
+                    51.42153011340418
+                ],
+                [
+                    17.932262420654297,
+                    51.43180533674875
+                ],
+                [
+                    17.92170524597168,
+                    51.4291832337135
+                ],
+                [
+                    17.925996780395508,
+                    51.42511600068021
+                ]
             ]
-          ]
         ]
-      }
+    }
 
     print(f'token is: {tkn}')
     prds = products.get_products(tkn)
@@ -60,7 +60,13 @@ def run() -> int:
     count = search.count_artifacts(tkn, 'Sentinel-2-L2A', cloud_cover=30.1, footprint=gjs)
     print("count")
     print(count)
-    srch = search.search_artifacts(tkn, 'Sentinel-2-L2A', limit=5, ingestion_from=datetime.now()-timedelta(days=60))
+    srch = search.search_artifacts(
+        tkn,
+        'Sentinel-2-L2A',
+        limit=5,
+        ingestion_from=datetime.now() -
+        timedelta(
+            days=60))
     print('srch')
     print(srch)
     return 0

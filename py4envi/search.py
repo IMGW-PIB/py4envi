@@ -8,7 +8,8 @@ from py4envi_openapi_client.models import SearchResponse
 
 logger = logging.getLogger(__name__)
 
-def _geojson_to_wkt(gjs: Dict[str, Any])->str:
+
+def _geojson_to_wkt(gjs: Dict[str, Any]) -> str:
     geom = shape(gjs)
     return geom.wkt
 
@@ -24,7 +25,7 @@ def _clean_api_arguments(args: Dict[str, Any]) -> Dict[str, str]:
     for k, v in args.items():
         if v is not None and k not in not_passed:
             if isinstance(v, datetime):
-                s =  v.isoformat()
+                s = v.isoformat()
                 if v.tzinfo is None:
                     s += 'Z'
                 kwargs[k] = s
@@ -56,7 +57,7 @@ def _raw_api(
         collection: Optional[str] = None,
         timeliness: Optional[str] = None,
         instrument: Optional[str] = None,
-        footprint: Optional[Dict[str,Any]] = None,
+        footprint: Optional[Dict[str, Any]] = None,
         product_level: Optional[str] = None,
         cloud_cover: Optional[float] = None,
         sort_by: Optional[str] = None,
@@ -106,7 +107,7 @@ def count_artifacts(
     collection: Optional[str] = None,
     timeliness: Optional[str] = None,
     instrument: Optional[str] = None,
-        footprint: Optional[Dict[str,Any]] = None,
+        footprint: Optional[Dict[str, Any]] = None,
     product_level: Optional[str] = None,
     cloud_cover: Optional[float] = None,
     sort_by: Optional[str] = None,
@@ -163,7 +164,7 @@ def search_artifacts(
     collection: Optional[str] = None,
     timeliness: Optional[str] = None,
     instrument: Optional[str] = None,
-        footprint: Optional[Dict[str,Any]] = None,
+        footprint: Optional[Dict[str, Any]] = None,
     product_level: Optional[str] = None,
     cloud_cover: Optional[float] = None,
     sort_by: Optional[str] = None,
