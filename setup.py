@@ -6,6 +6,7 @@ REQUIRES = [
     "urllib3 >= 1.25.3",
     "python-dateutil",
     "Shapely >= 1.7.1",
+    "geopandas >= 0.9.0",
 ]
 
 setup(

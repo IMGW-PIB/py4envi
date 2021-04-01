@@ -19,7 +19,6 @@ def _clean_api_arguments(args: Dict[str, Any]) -> Dict[str, str]:
     remove none values and non-api keywords, we cannot pass them, just omit
     also convert to str
     """
-    print(args)
     not_passed = ['token', 'search_api_fun', 'method']
     kwargs = {}
     for k, v in args.items():
@@ -35,7 +34,6 @@ def _clean_api_arguments(args: Dict[str, Any]) -> Dict[str, str]:
                 kwargs[k] = str(v).upper()
             else:
                 kwargs[k] = str(v)
-    print(kwargs)
     return kwargs
 
 
