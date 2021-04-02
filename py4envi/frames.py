@@ -13,6 +13,6 @@ def json_response_to_df(jss: List[Dict[str, Any]]) -> pandas.DataFrame:
     return pandas.json_normalize(cast(dict, df.to_dict(orient='records')))
 
 
-def json_response_to_gdf(jss: List[Dict[str, Any]]) -> pandas.DataFrame:
+def json_response_to_gdf(jss: List[Dict[str, Any]]) -> geopandas.GeoDataFrame:
     df = json_response_to_df(jss)
     return _df_to_gdf(df)

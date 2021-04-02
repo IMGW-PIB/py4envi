@@ -2,6 +2,7 @@ from typing import Callable
 import datetime
 from py4envi import search
 from py4envi_openapi_client.apis import SearchApi
+from py4envi_openapi_client.models import SearchResponse
 from py4envi_openapi_client import ApiClient
 
 
@@ -13,8 +14,10 @@ def _gen_mocked_search_api() -> Callable[[ApiClient], SearchApi]:
             super().__init__()
 
             def f1(**kwargs):
-                scene = {'test key': 'test value'}
-                return [scene]
+                sr=SearchResponse(
+        footprint= 'POLYGON ((17.92599678039551 51.42511600068021, 17.94530868530273 51.42153011340418, 17.9322624206543 51.43180533674875, 17.92170524597168 51.4291832337135, 17.92599678039551 51.42511600068021))',
+                        )
+                return [sr]
 
             def f2(**kwargs):
                 return 1
@@ -149,5 +152,5 @@ def test_search_artifacts():
         'fake token',
         'fake product',
         search_api_fun=_gen_mocked_search_api())
-    assert len(arts) == 1
-    assert arts[0] == {'test key': 'test value'}
+    assert list(arts.columns.values) == ['footprint', 'geometry']
+    assert arts.shape == (1,2)

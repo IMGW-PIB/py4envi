@@ -2,23 +2,13 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from typing import Callable, List
+import pandas
+from py4envi import frames
 import py4envi_openapi_client
 from py4envi_openapi_client.apis import ProductApi
 from py4envi_openapi_client.models import BasicProductResponse
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class Product:
-    name: str
-    display_name: str
-    label: str
-
-    @classmethod
-    def from_basic_product_response(cls, bpr: BasicProductResponse) -> Product:
-        return cls(bpr.name, bpr.display_name, bpr.product_category.label)
-
 
 def _get_raw_products(token: str,
                       product_api_fun: Callable[[py4envi_openapi_client.ApiClient], ProductApi],
@@ -44,6 +34,6 @@ def _get_raw_products(token: str,
 def get_products(token: str,
                  product_api_fun: Callable[[py4envi_openapi_client.ApiClient],
                                            ProductApi] = lambda c: ProductApi(c),
-                 ) -> List[Product]:
-    return [Product.from_basic_product_response(p)
-            for p in _get_raw_products(token, product_api_fun)]
+                 ) -> pandas.DataFrame:
+    js = [x.to_dict() for x in _get_raw_products(token, product_api_fun)]
+    return frames.json_response_to_df(js)

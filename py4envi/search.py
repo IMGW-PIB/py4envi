@@ -1,7 +1,9 @@
 import logging
 from datetime import datetime
 from typing import Callable, List, Optional, Dict, Union, Any, cast
+import geopandas
 from shapely.geometry import shape
+from py4envi import frames
 import py4envi_openapi_client
 from py4envi_openapi_client.apis import SearchApi
 from py4envi_openapi_client.models import SearchResponse
@@ -170,7 +172,7 @@ def search_artifacts(
     limit: Optional[int] = None,
     offset: Optional[int] = None,
     search_api_fun: Callable[[py4envi_openapi_client.ApiClient], SearchApi] = lambda c: SearchApi(c),
-) -> List[SearchResponse]:
+) -> geopandas.GeoDataFrame:
     """
     requests and returns a list of all artifacts that conform to the specified keywords
     """
@@ -200,4 +202,5 @@ def search_artifacts(
         limit=limit,
         offset=offset,
     )
-    return cast(List[SearchResponse], ret)
+    js = [x.to_dict() for x in cast(List[SearchResponse], ret)]
+    return frames.json_response_to_gdf(js)

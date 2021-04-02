@@ -38,8 +38,5 @@ def test_get_raw_products():
 def test_get_products():
     # mock our class
     prods = products.get_products('fake token', product_api_fun=_gen_mocked_product_api())
-    assert len(prods) > 0
-    assert isinstance(prods[0], products.Product)
-    assert prods[0].name == 'test'
-    assert prods[0].display_name == 'test'
-    assert prods[0].label == 'test'
+    assert list(prods.columns.values) == ['name','display_name','product_category.label']
+    assert prods.shape == (1,3)

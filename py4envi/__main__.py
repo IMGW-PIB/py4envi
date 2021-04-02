@@ -20,7 +20,7 @@ def cleanup():
 def run() -> int:
     atexit.register(cleanup)
     email, pwd = token.read_netrc_for_url("dane.sat4envi.imgw.pl") or ("", "")
-    tkn = token.get_or_request_token(email, pwd)
+    tkn = token.get_or_request_token(email, pwd, force=True)
 
     gjs = {
         "type": "Polygon",
