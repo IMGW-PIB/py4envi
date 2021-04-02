@@ -2,6 +2,7 @@ from typing import List, Dict, Any, cast
 import pandas
 import geopandas
 
+
 def _df_to_gdf(df: pandas.DataFrame, geometry_column: str = 'footprint') -> geopandas.GeoDataFrame:
     assert geometry_column in list(df.columns.values)
     gs = geopandas.GeoSeries.from_wkt(df[geometry_column], crs=4326)

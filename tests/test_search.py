@@ -14,9 +14,9 @@ def _gen_mocked_search_api() -> Callable[[ApiClient], SearchApi]:
             super().__init__()
 
             def f1(**kwargs):
-                sr=SearchResponse(
-        footprint= 'POLYGON ((17.92599678039551 51.42511600068021, 17.94530868530273 51.42153011340418, 17.9322624206543 51.43180533674875, 17.92170524597168 51.4291832337135, 17.92599678039551 51.42511600068021))',
-                        )
+                sr = SearchResponse(
+                    footprint='POLYGON ((17.92599678039551 51.42511600068021, 17.94530868530273 51.42153011340418, 17.9322624206543 51.43180533674875, 17.92170524597168 51.4291832337135, 17.92599678039551 51.42511600068021))',
+                )
                 return [sr]
 
             def f2(**kwargs):
@@ -153,4 +153,4 @@ def test_search_artifacts():
         'fake product',
         search_api_fun=_gen_mocked_search_api())
     assert list(arts.columns.values) == ['footprint', 'geometry']
-    assert arts.shape == (1,2)
+    assert arts.shape == (1, 2)

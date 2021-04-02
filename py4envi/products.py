@@ -1,6 +1,5 @@
 from __future__ import annotations
 import logging
-from dataclasses import dataclass
 from typing import Callable, List
 import pandas
 from py4envi import frames
@@ -9,6 +8,7 @@ from py4envi_openapi_client.apis import ProductApi
 from py4envi_openapi_client.models import BasicProductResponse
 
 logger = logging.getLogger(__name__)
+
 
 def _get_raw_products(token: str,
                       product_api_fun: Callable[[py4envi_openapi_client.ApiClient], ProductApi],
