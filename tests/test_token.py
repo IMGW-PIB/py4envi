@@ -10,13 +10,14 @@ from py4envi_openapi_client.models import TokenResponse, LoginRequest
 
 
 def _random_str() -> str:
-    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+    return "".join(
+        random.choice(string.ascii_uppercase + string.digits) for _ in range(10)
+    )
 
 
 def _gen_mocked_auth_api(
-        ret_token: Optional[str] = "fake token",
+    ret_token: Optional[str] = "fake token",
 ) -> Callable[[ApiClient], AuthApi]:
-
     class MockedAuthApi(AuthApi):
         def __init__(self):
             # initialize super to later overwrite token
@@ -42,27 +43,27 @@ def test_cache_token():
 
 
 def test_netrc():
-    with tempfile.NamedTemporaryFile(mode='w+t') as f:
+    with tempfile.NamedTemporaryFile(mode="w+t") as f:
         # write netrc contents
         lines = [
-            'machine random.host.com\n',
-            'login admin\n',
-            'password admin1234\n',
+            "machine random.host.com\n",
+            "login admin\n",
+            "password admin1234\n",
         ]
         f.writelines(lines)
         f.flush()
 
-        netrc = token.read_netrc_for_url('random.host.com', file_location=Path(f.name))
+        netrc = token.read_netrc_for_url("random.host.com", file_location=Path(f.name))
         assert netrc
-        assert netrc[0] == 'admin'
-        assert netrc[1] == 'admin1234'
+        assert netrc[0] == "admin"
+        assert netrc[1] == "admin1234"
 
 
 def test_get_new_token():
     test_token = "fake token"
 
     # mock our class to return what we want
-    tkn = token._get_new_token('', '', auth_api_fun=_gen_mocked_auth_api(test_token))
+    tkn = token._get_new_token("", "", auth_api_fun=_gen_mocked_auth_api(test_token))
     assert tkn is not None
     assert tkn == test_token
 
@@ -71,19 +72,23 @@ def test_get_or_request_token():
     test_token = "fake token"
 
     tkn = token.get_or_request_token(
-        '', '', auth_api_fun=_gen_mocked_auth_api(test_token), force=True)
+        "", "", auth_api_fun=_gen_mocked_auth_api(test_token), force=True
+    )
     assert tkn is not None
     assert tkn == test_token
 
     # we should get error because we are forcing
     try:
         tkn = token.get_or_request_token(
-            '', '', auth_api_fun=_gen_mocked_auth_api(None), force=True)
+            "", "", auth_api_fun=_gen_mocked_auth_api(None), force=True
+        )
     except BaseException:
         tkn = None
     assert tkn is None
 
     # now just read that cached one
-    tkn = token.get_or_request_token('', '', auth_api_fun=_gen_mocked_auth_api(None), force=False)
+    tkn = token.get_or_request_token(
+        "", "", auth_api_fun=_gen_mocked_auth_api(None), force=False
+    )
     assert tkn is not None
     assert tkn == test_token

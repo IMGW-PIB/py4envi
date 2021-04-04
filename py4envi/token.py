@@ -9,12 +9,12 @@ from py4envi_openapi_client.models import TokenResponse, LoginRequest
 
 
 logger = logging.getLogger(__name__)
-TOKEN_CACHE_FILENAME = 'sat4envi_token.txt'
+TOKEN_CACHE_FILENAME = "sat4envi_token.txt"
 
 
 def read_netrc_for_url(
-        url: str,
-        file_location: Path = Path('~/.netrc'),
+    url: str,
+    file_location: Path = Path("~/.netrc"),
 ) -> Optional[Tuple[str, str]]:
     """
     reads username and password from netrc file in the user's home dir
@@ -33,10 +33,11 @@ def read_netrc_for_url(
     return None
 
 
-def _get_new_token(email: str,
-                   password: str,
-                   auth_api_fun: Callable[[py4envi_openapi_client.ApiClient], AuthApi],
-                   ) -> Optional[str]:
+def _get_new_token(
+    email: str,
+    password: str,
+    auth_api_fun: Callable[[py4envi_openapi_client.ApiClient], AuthApi],
+) -> Optional[str]:
     """
     requests and returns a current api token
     """
@@ -89,10 +90,12 @@ def _read_cached_token() -> Optional[str]:
 
 
 def get_or_request_token(
-        email: str,
-        password: str,
-        force: bool = False,
-        auth_api_fun: Callable[[py4envi_openapi_client.ApiClient], AuthApi] = lambda c: AuthApi(c),
+    email: str,
+    password: str,
+    force: bool = False,
+    auth_api_fun: Callable[
+        [py4envi_openapi_client.ApiClient], AuthApi
+    ] = lambda c: AuthApi(c),
 ) -> str:
     """
     gets the cached token if it exists and force is not specified,

@@ -2,11 +2,13 @@ from typing import Callable
 from py4envi import products
 from py4envi_openapi_client.apis import ProductApi
 from py4envi_openapi_client import ApiClient
-from py4envi_openapi_client.models import BasicProductResponse, BasicProductCategoryResponse
+from py4envi_openapi_client.models import (
+    BasicProductResponse,
+    BasicProductCategoryResponse,
+)
 
 
 def _gen_mocked_product_api() -> Callable[[ApiClient], ProductApi]:
-
     class MockedProductApi(ProductApi):
         def __init__(self):
             # initialize super to later overwrite token
@@ -15,10 +17,11 @@ def _gen_mocked_product_api() -> Callable[[ApiClient], ProductApi]:
             def get_products_f():
                 return [
                     BasicProductResponse(
-                        name='test',
-                        display_name='test',
-                        product_category=BasicProductCategoryResponse(
-                            label='test'))]
+                        name="test",
+                        display_name="test",
+                        product_category=BasicProductCategoryResponse(label="test"),
+                    )
+                ]
 
             self.get_products = get_products_f
 
@@ -27,16 +30,24 @@ def _gen_mocked_product_api() -> Callable[[ApiClient], ProductApi]:
 
 def test_get_raw_products():
     # mock our class
-    prods = products._get_raw_products('fake token', product_api_fun=_gen_mocked_product_api())
+    prods = products._get_raw_products(
+        "fake token", product_api_fun=_gen_mocked_product_api()
+    )
     assert len(prods) > 0
     assert isinstance(prods[0], BasicProductResponse)
-    assert prods[0].name == 'test'
-    assert prods[0].display_name == 'test'
-    assert prods[0].product_category.label == 'test'
+    assert prods[0].name == "test"
+    assert prods[0].display_name == "test"
+    assert prods[0].product_category.label == "test"
 
 
 def test_get_products():
     # mock our class
-    prods = products.get_products('fake token', product_api_fun=_gen_mocked_product_api())
-    assert list(prods.columns.values) == ['name', 'display_name', 'product_category.label']
+    prods = products.get_products(
+        "fake token", product_api_fun=_gen_mocked_product_api()
+    )
+    assert list(prods.columns.values) == [
+        "name",
+        "display_name",
+        "product_category.label",
+    ]
     assert prods.shape == (1, 3)

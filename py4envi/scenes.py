@@ -19,11 +19,12 @@ class SceneArtifact:
     file_name: str
 
 
-def _get_redirection(token: str,
-                     id: int,
-                     artifact_name: str,
-                     scene_api_fun: Callable[[py4envi_openapi_client.ApiClient], SceneApi],
-                     ) -> Optional[HTTPResponse]:
+def _get_redirection(
+    token: str,
+    id: int,
+    artifact_name: str,
+    scene_api_fun: Callable[[py4envi_openapi_client.ApiClient], SceneApi],
+) -> Optional[HTTPResponse]:
     """
     returns a redirection to a download link for the specified artifact
     """
@@ -35,10 +36,13 @@ def _get_redirection(token: str,
         api_instance = scene_api_fun(api_client)
         try:
             api_response: HTTPResponse = api_instance.generate_download_link(
-                id, artifact_name, _return_http_data_only=False, _preload_content=False)
+                id, artifact_name, _return_http_data_only=False, _preload_content=False
+            )
             return api_response
         except py4envi_openapi_client.ApiException:
-            logger.error("Exception when calling ProductApi->get_products", exc_info=True)
+            logger.error(
+                "Exception when calling ProductApi->get_products", exc_info=True
+            )
         return None
 
 
@@ -47,12 +51,14 @@ def _filename_from_url(url: str) -> str:
     return os.path.basename(pr.path)
 
 
-def get_scene_artifact(token: str,
-                       id: int,
-                       artifact_name: str,
-                       scene_api_fun: Callable[[py4envi_openapi_client.ApiClient],
-                                               SceneApi] = lambda c: SceneApi(c),
-                       ) -> Optional[SceneArtifact]:
+def get_scene_artifact(
+    token: str,
+    id: int,
+    artifact_name: str,
+    scene_api_fun: Callable[
+        [py4envi_openapi_client.ApiClient], SceneApi
+    ] = lambda c: SceneApi(c),
+) -> Optional[SceneArtifact]:
     """
     returns a scene artifact object containing id and artifact name (those requested) as well as
     filename and download link

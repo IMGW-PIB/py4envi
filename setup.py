@@ -12,8 +12,8 @@ REQUIRES = [
 setup(
     name=NAME,
     version=__version__,
-    author='Konrad Malik',
-    author_email='konrad.malik@imgw.pl',
+    author="Konrad Malik",
+    author_email="konrad.malik@imgw.pl",
     description="Library/cli tool for https://dane.sat4envi.imgw.pl/",
     url="https://dane.sat4envi.imgw.pl/",
     keywords=["sat4envi", "api", "sentinel", "esa", "imgw"],
@@ -23,5 +23,5 @@ setup(
     include_package_data=True,
     long_description="""\
         Library/cli tool for https://dane.sat4envi.imgw.pl/
-    """
+    """,
 )

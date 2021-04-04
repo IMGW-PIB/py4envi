@@ -8,7 +8,6 @@ URL = "https://sat4envi-data.s3.cloud.cyfronet.pl/Sentinel-2/2021-03-29/S2B_MSIL
 
 
 def _gen_mocked_scene_api(status: int = 200) -> Callable[[ApiClient], SceneApi]:
-
     class MockedSceneApi(SceneApi):
         def __init__(self):
             # initialize super to later overwrite
@@ -25,42 +24,39 @@ def _gen_mocked_scene_api(status: int = 200) -> Callable[[ApiClient], SceneApi]:
 
 
 def test_filename_from_url():
-    assert scenes._filename_from_url(
-        URL) == 'S2B_MSIL2A_20210329T100609_N0214_R022_T34VCH_20210329T135553.SAFE.zip'
+    assert (
+        scenes._filename_from_url(URL)
+        == "S2B_MSIL2A_20210329T100609_N0214_R022_T34VCH_20210329T135553.SAFE.zip"
+    )
 
 
 def test_get_redirection():
     redirection = scenes._get_redirection(
-        'fake token',
-        1,
-        'some artifact',
-        scene_api_fun=_gen_mocked_scene_api(200))
+        "fake token", 1, "some artifact", scene_api_fun=_gen_mocked_scene_api(200)
+    )
     assert redirection.status == 200
-    assert redirection.geturl().startswith('http')
+    assert redirection.geturl().startswith("http")
 
     redirection = scenes._get_redirection(
-        'fake token',
-        1,
-        'some artifact',
-        scene_api_fun=_gen_mocked_scene_api(404))
+        "fake token", 1, "some artifact", scene_api_fun=_gen_mocked_scene_api(404)
+    )
     assert redirection.status == 404
 
 
 def test_get_scene_artifact():
     scene = scenes.get_scene_artifact(
-        'fake token',
-        1,
-        'some artifact',
-        scene_api_fun=_gen_mocked_scene_api(200))
+        "fake token", 1, "some artifact", scene_api_fun=_gen_mocked_scene_api(200)
+    )
     assert scene is not None
     assert scene.id == 1
-    assert scene.artifact_name == 'some artifact'
+    assert scene.artifact_name == "some artifact"
     assert scene.download_link == URL
-    assert scene.file_name == 'S2B_MSIL2A_20210329T100609_N0214_R022_T34VCH_20210329T135553.SAFE.zip'
+    assert (
+        scene.file_name
+        == "S2B_MSIL2A_20210329T100609_N0214_R022_T34VCH_20210329T135553.SAFE.zip"
+    )
 
     scene = scenes.get_scene_artifact(
-        'fake token',
-        1,
-        'some artifact',
-        scene_api_fun=_gen_mocked_scene_api(404))
+        "fake token", 1, "some artifact", scene_api_fun=_gen_mocked_scene_api(404)
+    )
     assert scene is None

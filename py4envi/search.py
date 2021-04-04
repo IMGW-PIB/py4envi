@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 from typing import Callable, List, Optional, Dict, Union, Any, cast
 import geopandas
+
 from shapely.geometry import shape
 from py4envi import frames
 import py4envi_openapi_client
@@ -21,18 +22,18 @@ def _clean_api_arguments(args: Dict[str, Any]) -> Dict[str, str]:
     remove none values and non-api keywords, we cannot pass them, just omit
     also convert to str
     """
-    not_passed = ['token', 'search_api_fun', 'method']
+    not_passed = ["token", "search_api_fun", "method"]
     kwargs = {}
     for k, v in args.items():
         if v is not None and k not in not_passed:
             if isinstance(v, datetime):
                 s = v.isoformat()
                 if v.tzinfo is None:
-                    s += 'Z'
+                    s += "Z"
                 kwargs[k] = s
-            elif k == 'footprint':
+            elif k == "footprint":
                 kwargs[k] = _geojson_to_wkt(v)
-            elif k == 'order':
+            elif k == "order":
                 kwargs[k] = str(v).upper()
             else:
                 kwargs[k] = str(v)
@@ -41,29 +42,29 @@ def _clean_api_arguments(args: Dict[str, Any]) -> Dict[str, str]:
 
 def _raw_api(
     method: str,
-        token: str,
-        product_type: str,
-        search_api_fun: Callable[[py4envi_openapi_client.ApiClient], SearchApi],
-        sensing_from: Optional[datetime] = None,
-        sensing_to: Optional[datetime] = None,
-        ingestion_from: Optional[datetime] = None,
-        ingestion_to: Optional[datetime] = None,
-        satellite_platform: Optional[str] = None,
-        processing_level: Optional[str] = None,
-        polarisation: Optional[str] = None,
-        sensor_mode: Optional[str] = None,
-        relative_orbit_number: Optional[str] = None,
-        absolute_orbit_number: Optional[str] = None,
-        collection: Optional[str] = None,
-        timeliness: Optional[str] = None,
-        instrument: Optional[str] = None,
-        footprint: Optional[Dict[str, Any]] = None,
-        product_level: Optional[str] = None,
-        cloud_cover: Optional[float] = None,
-        sort_by: Optional[str] = None,
-        order: Optional[str] = None,
-        limit: Optional[int] = None,
-        offset: Optional[int] = None,
+    token: str,
+    product_type: str,
+    search_api_fun: Callable[[py4envi_openapi_client.ApiClient], SearchApi],
+    sensing_from: Optional[datetime] = None,
+    sensing_to: Optional[datetime] = None,
+    ingestion_from: Optional[datetime] = None,
+    ingestion_to: Optional[datetime] = None,
+    satellite_platform: Optional[str] = None,
+    processing_level: Optional[str] = None,
+    polarisation: Optional[str] = None,
+    sensor_mode: Optional[str] = None,
+    relative_orbit_number: Optional[str] = None,
+    absolute_orbit_number: Optional[str] = None,
+    collection: Optional[str] = None,
+    timeliness: Optional[str] = None,
+    instrument: Optional[str] = None,
+    footprint: Optional[Dict[str, Any]] = None,
+    product_level: Optional[str] = None,
+    cloud_cover: Optional[float] = None,
+    sort_by: Optional[str] = None,
+    order: Optional[str] = None,
+    limit: Optional[int] = None,
+    offset: Optional[int] = None,
 ) -> Union[Optional[int], List[SearchResponse]]:
     """
     requests a count/list of all artifacts that conform to the specified keywords
@@ -73,7 +74,7 @@ def _raw_api(
     kwargs = _clean_api_arguments(locals())
 
     # validations
-    assert order is None or order in ['ASC', 'DESC']
+    assert order is None or order in ["ASC", "DESC"]
 
     logger.debug("%s on artifacts", method)
     configuration = py4envi_openapi_client.Configuration(
@@ -107,20 +108,22 @@ def count_artifacts(
     collection: Optional[str] = None,
     timeliness: Optional[str] = None,
     instrument: Optional[str] = None,
-        footprint: Optional[Dict[str, Any]] = None,
+    footprint: Optional[Dict[str, Any]] = None,
     product_level: Optional[str] = None,
     cloud_cover: Optional[float] = None,
     sort_by: Optional[str] = None,
     order: Optional[str] = None,
     limit: Optional[int] = None,
     offset: Optional[int] = None,
-    search_api_fun: Callable[[py4envi_openapi_client.ApiClient], SearchApi] = lambda c: SearchApi(c),
+    search_api_fun: Callable[
+        [py4envi_openapi_client.ApiClient], SearchApi
+    ] = lambda c: SearchApi(c),
 ) -> Optional[int]:
     """
     requests a count of all artifacts that conform to the specified keywords
     """
     ret = _raw_api(
-        'get_count',
+        "get_count",
         token,
         product_type,
         search_api_fun=search_api_fun,
@@ -164,20 +167,22 @@ def search_artifacts(
     collection: Optional[str] = None,
     timeliness: Optional[str] = None,
     instrument: Optional[str] = None,
-        footprint: Optional[Dict[str, Any]] = None,
+    footprint: Optional[Dict[str, Any]] = None,
     product_level: Optional[str] = None,
     cloud_cover: Optional[float] = None,
     sort_by: Optional[str] = None,
     order: Optional[str] = None,
     limit: Optional[int] = None,
     offset: Optional[int] = None,
-    search_api_fun: Callable[[py4envi_openapi_client.ApiClient], SearchApi] = lambda c: SearchApi(c),
+    search_api_fun: Callable[
+        [py4envi_openapi_client.ApiClient], SearchApi
+    ] = lambda c: SearchApi(c),
 ) -> geopandas.GeoDataFrame:
     """
     requests and returns a list of all artifacts that conform to the specified keywords
     """
     ret = _raw_api(
-        'get_scenes',
+        "get_scenes",
         token,
         product_type,
         search_api_fun=search_api_fun,

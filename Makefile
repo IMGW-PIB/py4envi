@@ -20,7 +20,7 @@ clean:
 	rm -rf *.egg-info
 
 lint: venv
-	${PYTHON} -m autopep8 --in-place -a -a -r ${LINTED}
+	${PYTHON} -m black ${LINTED}
 	${PYTHON} -m autoflake --in-place --recursive --remove-all-unused-imports ${LINTED}
 	${PYTHON} -m mypy --ignore-missing-imports --follow-imports=skip ${LINTED}
 
