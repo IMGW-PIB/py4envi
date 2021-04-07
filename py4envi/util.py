@@ -21,13 +21,17 @@ def filesize(f: Path) -> Optional[int]:
     return None
 
 
-def download(url: str, dest_folder: Path, chunk_size: int = 1024, overwrite: bool = False) -> Path:
+def download(
+    url: str, dest_folder: os.PathLike, chunk_size: int = 1024, overwrite: bool = False
+) -> os.PathLike:
     """
     Downloads a file from url to the specified directory.
     Directory will be created if does not exist.
     Download will be resumed if file parts are found.
     Overwrite can be specified to start download from scratch if anything was downloaded before.
     """
+    dest_folder = Path(dest_folder)
+
     def resume_headers(start_bytes: int) -> Dict[str, str]:
         return {"Range": f"bytes={start_bytes}-"}
 

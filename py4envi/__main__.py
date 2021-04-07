@@ -3,7 +3,8 @@ import sys
 import logging
 import atexit
 from datetime import datetime, timedelta
-from . import token, products, scenes, search, util
+from pathlib import Path
+from . import products, scenes, search, token
 
 
 def configure_logging():
@@ -41,9 +42,9 @@ def run() -> int:
     scene = scenes.get_scene_artifact(tkn, 6675430, "product_archive")
     print("scene")
     print(scene)
-    
-    from pathlib import Path
-    print(util.download(scene.download_link, Path('.')))
+
+    assert scene
+    print(scenes.download_scene_artifact(scene, Path(".")))
 
     count = search.count_artifacts(
         tkn, "Sentinel-2-L2A", cloud_cover=30.1, footprint=gjs

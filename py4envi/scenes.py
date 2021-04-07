@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 import logging
 from dataclasses import dataclass
 from typing import Callable, Optional
@@ -71,3 +72,9 @@ def get_scene_artifact(
         )
     logger.error("response status was %d, not 200", response.status)
     return None
+
+
+def download_scene_artifact(
+    sa: SceneArtifact, dest_folder: os.PathLike, overwrite: bool = False
+) -> os.PathLike:
+    return util.download(sa.download_link, dest_folder, overwrite=overwrite)
