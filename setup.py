@@ -4,9 +4,11 @@ from py4envi import __version__
 NAME = "py4envi"
 REQUIRES = [
     "urllib3 >= 1.25.3",
+    "requests >= 2.25.1",
     "python-dateutil",
     "Shapely >= 1.7.1",
     "geopandas >= 0.9.0",
+    "tqdm >= 4.60.0",
 ]
 
 setup(

@@ -1,10 +1,9 @@
 from __future__ import annotations
-import os
 import logging
 from dataclasses import dataclass
 from typing import Callable, Optional
-from urllib.parse import urlparse
 from urllib3.response import HTTPResponse
+from py4envi import util
 import py4envi_openapi_client
 from py4envi_openapi_client.apis import SceneApi
 
@@ -46,11 +45,6 @@ def _get_redirection(
         return None
 
 
-def _filename_from_url(url: str) -> str:
-    pr = urlparse(url)
-    return os.path.basename(pr.path)
-
-
 def get_scene_artifact(
     token: str,
     id: int,
@@ -73,7 +67,7 @@ def get_scene_artifact(
             id,
             artifact_name,
             url,
-            _filename_from_url(url),
+            util.filename_from_url(url),
         )
     logger.error("response status was %d, not 200", response.status)
     return None

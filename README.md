@@ -3,5 +3,5 @@
 In progress
 
 ## TODO
-- downloading and "with" syntax for products
+- downloading 
 - cli tool

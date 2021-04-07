@@ -3,7 +3,7 @@ import sys
 import logging
 import atexit
 from datetime import datetime, timedelta
-from . import token, products, scenes, search
+from . import token, products, scenes, search, util
 
 
 def configure_logging():
@@ -41,6 +41,10 @@ def run() -> int:
     scene = scenes.get_scene_artifact(tkn, 6675430, "product_archive")
     print("scene")
     print(scene)
+    
+    from pathlib import Path
+    print(util.download(scene.download_link, Path('.')))
+
     count = search.count_artifacts(
         tkn, "Sentinel-2-L2A", cloud_cover=30.1, footprint=gjs
     )
@@ -54,6 +58,7 @@ def run() -> int:
     )
     print("srch")
     print(srch)
+    print(list(srch.columns.values))
 
     return 0
 

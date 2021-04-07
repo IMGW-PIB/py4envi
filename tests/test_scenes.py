@@ -23,13 +23,6 @@ def _gen_mocked_scene_api(status: int = 200) -> Callable[[ApiClient], SceneApi]:
     return lambda _: MockedSceneApi()
 
 
-def test_filename_from_url():
-    assert (
-        scenes._filename_from_url(URL)
-        == "S2B_MSIL2A_20210329T100609_N0214_R022_T34VCH_20210329T135553.SAFE.zip"
-    )
-
-
 def test_get_redirection():
     redirection = scenes._get_redirection(
         "fake token", 1, "some artifact", scene_api_fun=_gen_mocked_scene_api(200)
