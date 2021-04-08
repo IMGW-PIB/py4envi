@@ -46,14 +46,14 @@ def test_netrc():
     with tempfile.NamedTemporaryFile(mode="w+t") as f:
         # write netrc contents
         lines = [
-            "machine random.host.com\n",
+            "machine dane.sat4envi.imgw.pl\n",
             "login admin\n",
             "password admin1234\n",
         ]
         f.writelines(lines)
         f.flush()
 
-        netrc = token.read_netrc_for_url("random.host.com", file_location=Path(f.name))
+        netrc = token._read_netrc_for_url(file_location=Path(f.name))
         assert netrc
         assert netrc[0] == "admin"
         assert netrc[1] == "admin1234"

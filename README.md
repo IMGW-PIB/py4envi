@@ -22,12 +22,11 @@ See `openapi_docs` folder for openapi specification.
 ```python
 from py4envi import products, scenes, search, token
 
-# read login credentials from .netrc
-email, pwd = token.read_netrc_for_url("dane.sat4envi.imgw.pl")
-assert email is not NOne and pwd is not None
-# alternatively, you can just specify email and pwd
-#email = "example@example.com"
-#pwd = "fake password"
+# you can omit specifying email and password (don't pass them to functions or set them as None)
+# they will be read from netrc automatically
+# you can also specify email and pwd explicitly
+email = "example@example.com"
+pwd = "fake password"
 
 # request token to use during this session
 tkn = token.get_or_request_token(email, pwd)

@@ -3,6 +3,7 @@ import logging
 import netrc
 from pathlib import Path
 from typing import Optional, Tuple, Callable
+from urllib.parse import urlparse
 import py4envi_openapi_client
 from py4envi_openapi_client.apis import AuthApi
 from py4envi_openapi_client.models import TokenResponse, LoginRequest
@@ -12,13 +13,16 @@ logger = logging.getLogger(__name__)
 TOKEN_CACHE_FILENAME = "sat4envi_token.txt"
 
 
-def read_netrc_for_url(
-    url: str,
+def _read_netrc_for_url(
     file_location: Path = Path("~/.netrc"),
 ) -> Optional[Tuple[str, str]]:
     """
     reads username and password from netrc file in the user's home dir
     """
+    configuration = py4envi_openapi_client.Configuration()
+    url = urlparse(configuration._base_path).hostname
+    assert url, "url read from openapi config was None"
+
     logger.debug("getting auth data for host: %s from netrc file", url)
     # explicitly specify file to avoid permission checks
     nrc = netrc.netrc(str(file_location.expanduser().resolve().absolute()))
@@ -90,8 +94,8 @@ def _read_cached_token() -> Optional[str]:
 
 
 def get_or_request_token(
-    email: str,
-    password: str,
+    email: str = None,
+    password: str = None,
     force: bool = False,
     auth_api_fun: Callable[
         [py4envi_openapi_client.ApiClient], AuthApi
@@ -100,7 +104,13 @@ def get_or_request_token(
     """
     gets the cached token if it exists and force is not specified,
     else it gets a new token and caches it.
+    If email or password are not provided, tries to read them from netrc.
     """
+    if email is None or password is None:
+        logger.info("email or password was None, reading credentials from netrc...")
+        nrc = _read_netrc_for_url()
+        assert nrc, "email or password was not provided, but it was not found in netrc"
+        email, password = nrc
     tkn = _read_cached_token()
     if force or not tkn:
         tkn = _get_new_token(email, password, auth_api_fun)
