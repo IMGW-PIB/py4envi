@@ -2,9 +2,6 @@ import os
 import sys
 import logging
 import atexit
-from datetime import datetime, timedelta
-from pathlib import Path
-from . import products, scenes, search, token
 
 
 def configure_logging():
@@ -19,48 +16,6 @@ def cleanup():
 
 def run() -> int:
     atexit.register(cleanup)
-    email, pwd = token.read_netrc_for_url("dane.sat4envi.imgw.pl") or ("", "")
-    tkn = token.get_or_request_token(email, pwd, force=True)
-
-    gjs = {
-        "type": "Polygon",
-        "coordinates": [
-            [
-                [17.925996780395508, 51.42511600068021],
-                [17.945308685302734, 51.42153011340418],
-                [17.932262420654297, 51.43180533674875],
-                [17.92170524597168, 51.4291832337135],
-                [17.925996780395508, 51.42511600068021],
-            ]
-        ],
-    }
-
-    print(f"token is: {tkn}")
-    prds = products.get_products(tkn)
-    print("proucts:")
-    print(prds)
-    scene = scenes.get_scene_artifact(tkn, 6675430, "product_archive")
-    print("scene")
-    print(scene)
-
-    assert scene
-    print(scenes.download_scene_artifact(scene, Path(".")))
-
-    count = search.count_artifacts(
-        tkn, "Sentinel-2-L2A", cloud_cover=30.1, footprint=gjs
-    )
-    print("count")
-    print(count)
-    srch = search.search_artifacts(
-        tkn,
-        "Sentinel-2-L2A",
-        limit=5,
-        ingestion_from=datetime.now() - timedelta(days=60),
-    )
-    print("srch")
-    print(srch)
-    print(list(srch.columns.values))
-
     return 0
 
 
