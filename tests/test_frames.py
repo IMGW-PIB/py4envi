@@ -76,7 +76,6 @@ def test_json_response_to_df():
 
 def test_json_response_to_gdf():
     gdf = frames.json_response_to_gdf(JS)
-    print(gdf.columns.values)
     assert list(gdf.columns.values) == [
         "artifacts",
         "footprint",

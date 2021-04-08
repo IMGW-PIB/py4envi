@@ -1,3 +1,5 @@
+import tempfile
+from unittest.mock import patch, Mock
 from typing import Callable
 from urllib3.response import HTTPResponse
 from py4envi import scenes
@@ -53,3 +55,23 @@ def test_get_scene_artifact():
         "fake token", 1, "some artifact", scene_api_fun=_gen_mocked_scene_api(404)
     )
     assert scene is None
+
+
+def test_download_scene_artifact():
+    # download itself is already tested, so we test just basics
+    sa = scenes.SceneArtifact(1, "test", "http://fake.pl/file.zip", "file.zip")
+    bts = "abcd1234_%$#".encode()
+
+    with tempfile.TemporaryDirectory() as dir:
+        with patch("py4envi.util.requests.get") as mock_get:
+            # Configure the mock to return a proper response
+            mock_get.return_value.ok = True
+            mock_get.return_value.iter_content = Mock(return_value=[bts])
+            mock_get.return_value.headers = {
+                "Content-Length": len(bts),
+                "Content-Type": "application/zip",
+            }
+
+            # Call the service, which will send a request to the server.
+            path = scenes.download_scene_artifact(sa, dir)
+            assert str(path).endswith(sa.file_name)

@@ -1,3 +1,4 @@
+import os
 import tempfile
 from unittest.mock import patch, Mock
 from py4envi import util
@@ -31,5 +32,17 @@ def test_download():
             assert str(path).endswith("file.zip")
             with open(path, "rb") as f:
                 read_bts = f.read()
-                assert len(read_bts) == len(bts)
                 assert read_bts == bts
+
+            # remove file,create just a part, and then try to resume
+            os.remove(path)
+
+            with open(path, "wb") as f:
+                f.write(bts[:2])
+
+            path = util.download("http://fake.pl/file.zip", dir)
+            assert str(path).endswith("file.zip")
+            with open(path, "rb") as f:
+                read_bts = f.read()
+                # +2 because we already saved 2 bytes. This is should just append missing data, but this mock does not support ranges
+                assert len(read_bts) == len(bts) + 2
