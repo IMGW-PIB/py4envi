@@ -1,7 +1,7 @@
 import os
 import sys
 import logging
-import atexit
+from py4envi import cli
 
 
 def configure_logging():
@@ -9,17 +9,11 @@ def configure_logging():
     logging.basicConfig(level=logging.getLevelName(level))
 
 
-def cleanup():
-    """Cleans up data after the application"""
-    logging.info("cleaning stuff up")
-
-
-def run() -> int:
-    atexit.register(cleanup)
+def main() -> int:
+    configure_logging()
+    cli.run()
     return 0
 
 
 if __name__ == "__main__":
-    configure_logging()
-    exitcode = run()
-    sys.exit(exitcode)
+    sys.exit(main())

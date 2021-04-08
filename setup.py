@@ -26,4 +26,7 @@ setup(
     long_description="""\
         Library/cli tool for https://dane.sat4envi.imgw.pl/
     """,
+    entry_points={
+        "console_scripts": ["py4envi = py4envi.__main__:main"],
+    },
 )
