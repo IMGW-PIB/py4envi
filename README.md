@@ -92,6 +92,8 @@ _ = scenes.download_scene_artifact(scene, Path("."), overwrite=True)
 # TODO
 
 - cli tool
+    - scenes cli (return json, download as optional flag)
+    - add optional download-first to search (sort by etc is available)
 - cli tool example usage
 - tox for tests (multiple python versions) or docker on github actions?
 - pypi
