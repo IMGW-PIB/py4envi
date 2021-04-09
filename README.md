@@ -1,7 +1,3 @@
-# TODO
-
-- cli tool
-
 # Py4Envi
 
 Py4Envi is a python library that allows for easy and efficient programatic access to sat4envi resources.
@@ -92,3 +88,10 @@ print(downloaded)
 _ = scenes.download_scene_artifact(scene, Path("."), overwrite=True)
 
 ```
+
+# TODO
+
+- cli tool
+- cli tool example usage
+- tox for tests (multiple python versions) or docker on github actions?
+- pypi
