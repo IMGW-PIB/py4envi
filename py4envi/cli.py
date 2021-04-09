@@ -1,21 +1,102 @@
+import os
+import logging
 import sys
 import argparse
 import py4envi
+from py4envi import products, search, token, util
 
 
-def cli_args(p: argparse.ArgumentParser) -> argparse.Namespace:
+def configure_logging():
+    level = os.environ.get("LOG_LEVEL", "error").upper()
+    logging.basicConfig(level=logging.getLevelName(level))
 
+
+def _products_parser(subparsers: argparse._SubParsersAction) -> argparse.ArgumentParser:
+    p = subparsers.add_parser("products", help="lists available products")
+    return p
+
+
+def _search_parser(subparsers: argparse._SubParsersAction) -> argparse.ArgumentParser:
+    p = subparsers.add_parser("search", help="searches available products")
+
+    p.add_argument(
+        "--count", action="store_true", help="returns just a count of found artifacts"
+    )
+
+    p.add_argument(
+        "--product-type",
+        type=str,
+        default=None,
+        required=True,
+        help="product type to query",
+    )
+    # add specific optionals here
+    p.add_argument(
+        "--sensing-from",
+        type=str,
+        default=None,
+        help="start time of sensing ISO-8601",
+    )
+
+    p.add_argument(
+        "--sensing-to",
+        type=str,
+        default=None,
+        help="end time of sensing ISO-8601",
+    )
+
+    p.add_argument(
+        "--ingestion-from",
+        type=str,
+        default=None,
+        help="start time of ingestion ISO-8601",
+    )
+
+    p.add_argument(
+        "--ingestion-to",
+        type=str,
+        default=None,
+        help="end time of ingestion ISO-8601",
+    )
+
+    # add generic optionals in a loop
+    # function does not make a difference, args are the same
+    optionals = util.extract_optional_args_with_types(search.count_artifacts)
+    for n, t in optionals.items():
+        p.add_argument(
+            f"--{n.replace('_','-')}",
+            type=t,
+            default=None,
+            help=f"openapi parameter: {n}",
+        )
+
+    return p
+
+
+def _main_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+
+    # misc
     p.add_argument(
         "--version", action="store_true", help="shows current library version"
     )
 
     p.add_argument(
-        "-v",
-        "--verbosity",
+        "--force-new-token", action="store_true", help="forces query for a new token"
+    )
+
+    p.add_argument(
+        "-w",
+        "--width",
         type=int,
-        choices=[0, 1, 2],
-        default=0,
-        help="increase output verbosity (default: %(default)s)",
+        default=2000,
+        help="max width of the printed dataframe (default: %(default)s)",
+    )
+
+    p.add_argument(
+        "--json", action="store_true", help="prints json instead of dataframes"
     )
 
     # creds
@@ -35,39 +116,52 @@ def cli_args(p: argparse.ArgumentParser) -> argparse.Namespace:
     )
 
     # actions
-    p.add_argument(
-        "-a",
-        "--action",
-        type=str,
-        default="list-products",
-        choices=["list-products"],
-        help="which action to perform (default: %(default)s)",
-    )
+    subparsers = p.add_subparsers(help="specify a command", dest="command")
+    _ = _products_parser(subparsers)
+    _ = _search_parser(subparsers)
 
-    return p.parse_args()
+    return p
 
 
-def help():
-    h = 'Try $python <script_name> "Hello" 123 --enable'
-    print(h)
-
-
-def version() -> str:
+def _version() -> str:
     """Gets current version of the library"""
     return py4envi.__version__
 
 
-def run():
-    parser = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
-    )
+def cmd_products(ns: argparse.Namespace, tkn: str):
+    df = products.get_products(tkn)
+    util.print_df(df, width=ns.width, json=ns.json)
 
+
+def cmd_search(ns: argparse.Namespace, tkn: str):
+    # TODO parse optional args
+    # string to date: sensing_from': <class 'datetime.datetime'>, 'sensing_to': <class 'datetime.datetime'>, 'ingestion_from': <class 'datetime.datetime'>, 'ingestion_to'
+    # geojson from file: footprint
+    print(ns.__dict__)
+
+    if ns.count:
+        print(search.count_artifacts(tkn, ns.product_type))
+    else:
+        df = search.search_artifacts(tkn, ns.product_type)
+        util.print_df(df, width=ns.width, json=ns.json)
+
+
+def run():
+    configure_logging()
     if sys.version_info < (3, 6, 0):
         sys.stderr.write("You need python 3.6 or later to run this script\n")
         sys.exit(1)
 
-    namespace = cli_args(parser)
+    parser = _main_parser()
+    namespace = parser.parse_args()
+    lazy_token = lambda: token.get_or_request_token(
+        namespace.email, namespace.password, force=namespace.force_new_token
+    )
     if namespace.version:
-        print(version())
+        print(_version())
+    elif namespace.command == "products":
+        cmd_products(namespace, lazy_token())
+    elif namespace.command == "search":
+        cmd_search(namespace, lazy_token())
     else:
         parser.print_help()

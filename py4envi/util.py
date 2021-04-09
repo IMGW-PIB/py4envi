@@ -1,13 +1,72 @@
+import logging
 import os
 import requests
+import inspect
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, Union, Any, List
 from urllib.parse import urlparse
+import pandas
+import geopandas
 from tqdm import tqdm
+
+logger = logging.getLogger(__name__)
+
+
+def print_df(
+    x: Union[pandas.DataFrame, geopandas.GeoDataFrame],
+    width: int = 2000,
+    json: bool = True,
+):
+    if isinstance(x, geopandas.GeoDataFrame):
+        x = pandas.DataFrame(x)
+    if json:
+        print(x.to_json(orient="records", default_handler=str))
+        return
+    try:
+        pandas.set_option("display.max_rows", None)
+        pandas.set_option("display.max_columns", None)
+        pandas.set_option("display.width", width)
+        pandas.set_option("display.float_format", "{:20,.2f}".format)
+        pandas.set_option("display.max_colwidth", None)
+        print(x)
+    except Exception:
+        pandas.reset_option("display.max_rows")
+        pandas.reset_option("display.max_columns")
+        pandas.reset_option("display.width")
+        pandas.reset_option("display.float_format")
+        pandas.reset_option("display.max_colwidth")
+        logger.error("error while printing dataframe", exc_info=True)
 
 
 def nonempty_dict(d: dict) -> bool:
     return bool(d)
+
+
+def get_union_positional_type(u: Union[Any], index: int = 0) -> Any:
+    return u.__args__[index]
+
+
+def extract_optional_args_with_types(
+    fun: Any,
+    exclude: List[str] = [
+        "return",
+        "footprint",
+        "ingestion_from",
+        "ingestion_to",
+        "sensing_from",
+        "sensing_to",
+    ],
+) -> Dict[str, Any]:
+    spec = inspect.getfullargspec(fun)
+    res = {}
+    for k, v in spec.annotations.items():
+        if k not in exclude:
+            s = str(v)
+            # filter to only optional args that are optional
+            if "Union" in s and "NoneType" in s and len(v.__args__) == 2:
+                t = get_union_positional_type(v, index=0)
+                res[k] = t
+    return res
 
 
 def filename_from_url(url: str) -> str:
