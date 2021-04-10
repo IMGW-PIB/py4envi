@@ -20,7 +20,7 @@ Be sure to check it very often and investigate available arguments and their ord
 
 `jq` tool is highly recommended to parse large json responses.
 
-```
+```bash
 # you can omit specifying email and password
 # they will be read from netrc automatically
 # you can also specify email and pwd explicitly for every command listed below like so:
