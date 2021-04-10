@@ -7,6 +7,19 @@ It also provides a simple CLI tool to explore and obtain those resources without
 
 See below for examples on both use-cases.
 
+- [top](#py4envi)
+- [installation](#installation)
+- [CLI](#exemplary-usage-cli)
+- [code](#exemplary-usage-code)
+
+## Installation
+
+For now only installation from the source code is available:
+
+```bash
+$ python -m pip install .
+```
+
 ## Docs
 
 See [OpenAPI docs](openapi_docs/README.md) folder for openapi specification.
