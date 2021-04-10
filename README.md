@@ -9,7 +9,7 @@ See below for examples on both use-cases.
 
 ## Docs
 
-See `openapi_docs` folder for openapi specification.
+See [OpenAPI docs](openapi_docs/README.md) folder for openapi specification.
 
 ## Exemplary usage (cli)
 
