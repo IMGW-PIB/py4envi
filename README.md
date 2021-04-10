@@ -3,14 +3,55 @@
 Py4Envi is a python library that allows for easy and efficient programatic access to sat4envi resources.
 It also provides a simple CLI tool to explore and obtain those resources without writing code.
 
+See below for examples on both use-cases.
+
 ## Docs
 
 See `openapi_docs` folder for openapi specification.
 
 ## Exemplary usage (cli)
 
+The most important thing about CLI is... help ;) show it by executing `-h` and any level of the tool (any subcommand etc.).
+
+It is always available and varies for different levels of this tool.
+Be sure to check it very often and investigate available arguments and their order (order is important here and can be a little tricky so be sure to double check it in the help).
+
 ```
-# TODO
+# you can omit specifying email and password
+# they will be read from netrc automatically
+# you can also specify email and pwd explicitly for every command listed below like so:
+$ py4envi -e example@example.com -p "fake password" <other arguments>
+
+# obtained token is cached as a temporary file
+# if for some reason token gets out-of-date but your temp files were not cleaned
+# you can force getting a new token as below
+$ py4envi -e example@example.com -p "fake password" --new-token <other arguments>
+
+# let's query API for all available products
+# this returns a dataframe
+$ py4envi products
+# a convinience param is avaiable to return json, this can be later piped to for example `jq` and used in scripts:
+$ py4envi --json products
+# this is also a good example of how important is the ordering of arguments. `--json` provided at the very end won't work!
+
+# count a number of specific artifacts of a product in the specified geometry (geojson file)
+# filtered by cloud cover (there are many parameters to pass here, see help or OpenAPI docs)
+$ py4envi search --product-type Sentinel-2-L2A --footprint ./tests/geojson.json --cloud-cover 30.1 --count
+# omit `---count` to return all results (again, dataframe or json, depending on the flag)
+$ py4envi --json search --product-type Sentinel-2-L2A --footprint ./tests/geojson.json --cloud-cover 30.1
+
+# download a specific artifact knowing its name and id
+$ py4envi -n product_archive artifact -i 6675430
+# specify different directory
+$ py4envi download -n product_archive -d /tmp artifact -i 6675430
+
+# one can also execute download on 'ith' result of search
+# the same arguments as for search are available, but again, check the help
+# here we explicitly download the first result (this is also the default)
+$ py4envi download -n quicklook search --product-type Sentinel-2-L2A --cloud-cover 30.1
+
+# interrupted download can be resumed by just calling the same command once more
+# if you with to overwrite the previous download, just pass `--overwrite` flag (see help)
 ```
 
 ## Exemplary usage (code)
@@ -27,7 +68,7 @@ pwd = "fake password"
 # request token to use during this session
 tkn = token.get_or_request_token(email, pwd)
 # token is cached as a temporary file
-# if for some reason token gets out-of-date but your temp files were not clened
+# if for some reason token gets out-of-date but your temp files were not cleaned
 # you can force getting a new token as below
 #tkn = token.get_or_request_token(email, pwd, force=True)
 
@@ -91,9 +132,5 @@ _ = scenes.download_scene_artifact(scene, Path("."), overwrite=True)
 
 # TODO
 
-- cli tool
-    - scenes cli (return json, download as optional flag)
-    - add optional download-first to search (sort by etc is available)
-- cli tool example usage
 - tox for tests (multiple python versions) or docker on github actions?
 - pypi
