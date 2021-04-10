@@ -4,7 +4,7 @@ import dateutil.parser
 import logging
 import sys
 import argparse
-from typing import Dict,Any
+from typing import Dict, Any
 from pathlib import Path
 import py4envi
 from py4envi import products, search, token, util
@@ -146,22 +146,24 @@ def cmd_products(ns: argparse.Namespace, tkn: str):
 
 def cmd_search(ns: argparse.Namespace, tkn: str):
     # TODO additional flag to download
-    def validate_and_clean_kwargs(args: Dict[str,Any])->Dict[str,Any]:
+    def validate_and_clean_kwargs(args: Dict[str, Any]) -> Dict[str, Any]:
         ret = {}
-        optionals = list(util.extract_optional_args_with_types(search.count_artifacts).keys())
-        for k,v in args.items():
-            if k == 'footprint' and v is not None:
+        optionals = list(
+            util.extract_optional_args_with_types(search.count_artifacts).keys()
+        )
+        for k, v in args.items():
+            if k == "footprint" and v is not None:
                 gjs_file = Path(v)
                 assert gjs_file.exists(), "passed geojson file has to exist"
                 with open(gjs_file) as f:
                     ret[k] = geojson.load(f)
-            elif k == 'sensing_from' and v is not None:
+            elif k == "sensing_from" and v is not None:
                 ret[k] = dateutil.parser.parse(v)
-            elif k == 'sensing_to' and v is not None:
+            elif k == "sensing_to" and v is not None:
                 ret[k] = dateutil.parser.parse(v)
-            elif k == 'ingestion_from' and v is not None:
+            elif k == "ingestion_from" and v is not None:
                 ret[k] = dateutil.parser.parse(v)
-            elif k== 'ingestion_to' and v is not None:
+            elif k == "ingestion_to" and v is not None:
                 ret[k] = dateutil.parser.parse(v)
             elif k in optionals:
                 ret[k] = v
@@ -175,11 +177,13 @@ def cmd_search(ns: argparse.Namespace, tkn: str):
         df = search.search_artifacts(tkn, ns.product_type, **kwargs)
         util.print_df(df, width=ns.width, json=ns.json)
 
-def cmd_scene(ns:argparse.Namespace, tkn:str):
+
+def cmd_scene(ns: argparse.Namespace, tkn: str):
     # TODO
     # get and return as json
     # additional flag to download
     pass
+
 
 def run():
     configure_logging()
