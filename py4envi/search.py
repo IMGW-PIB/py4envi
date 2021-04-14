@@ -208,4 +208,10 @@ def search_artifacts(
         offset=offset,
     )
     js = [x.to_dict() for x in cast(List[SearchResponse], ret)]
-    return frames.json_response_to_gdf(js)
+    if len(js) == 0:
+        return geopandas.GeoDataFrame()
+    try:
+        return frames.json_response_to_gdf(js)
+    except:
+        logger.error("cannot convert response to geodataframe", exc_info=True)
+        raise Exception("error converting to GeoDataFrame")
