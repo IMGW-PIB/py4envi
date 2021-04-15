@@ -24,20 +24,25 @@ $ python -m pip install .
 
 See [OpenAPI docs](openapi_docs/README.md) folder for openapi specification.
 
+## Authentication
+
+The tool supports `.netrc` file for automatically reading credentials if you want.
+It's contents should look like this:
+
+```
+machine dane.sat4envi.imgw.pl
+login email@email.com
+password some-fake-password
+```
+
+Otherwise you can just provide email and password (or just token) directly. See examples below.
+
 ## Exemplary usage (cli)
 
 The most important thing about CLI is... help ;) show it by executing `-h` and any level of the tool (any subcommand etc.).
 
 It is always available and varies for different levels of this tool.
 Be sure to check it very often and investigate available arguments and their order (order is important here and can be a little tricky so be sure to double check it in the help).
-
-The tool supports `.netrc` file for automatically reading credentials if you want.
-It's contents should look like this:
-```
-machine dane.sat4envi.imgw.pl
-login email@email.com
-password some-fake-password
-```
 
 `jq` tool is highly recommended to parse large json responses.
 
