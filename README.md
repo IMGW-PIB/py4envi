@@ -31,6 +31,14 @@ The most important thing about CLI is... help ;) show it by executing `-h` and a
 It is always available and varies for different levels of this tool.
 Be sure to check it very often and investigate available arguments and their order (order is important here and can be a little tricky so be sure to double check it in the help).
 
+The tool supports `.netrc` file for automatically reading credentials if you want.
+It's contents should look like this:
+```
+machine dane.sat4envi.imgw.pl
+login email@email.com
+password some-fake-password
+```
+
 `jq` tool is highly recommended to parse large json responses.
 
 ```bash
