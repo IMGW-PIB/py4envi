@@ -5,7 +5,7 @@ NAME = "py4envi"
 REQUIRES = [
     "urllib3 >= 1.25.3",
     "requests >= 2.25.1",
-    "python-dateutil",
+    "python-dateutil >= 2.8.1",
     "Shapely >= 1.7.1",
     "geopandas >= 0.9.0",
     "tqdm >= 4.60.0",
