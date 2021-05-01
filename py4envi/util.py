@@ -97,8 +97,8 @@ def download(
     filename = filename_from_url(url)
     filepath = dest_folder.joinpath(filename)
     dest_folder.mkdir(parents=True, exist_ok=True)
-    if overwrite:
-        filepath.unlink(missing_ok=True)
+    if overwrite and filepath.exists():
+        filepath.unlink()
 
     # if file exists, continue download
     current_size = filesize(filepath)
