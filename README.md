@@ -160,7 +160,7 @@ _ = scenes.download_scene_artifact(scene, Path("."), overwrite=True)
 
 ```
 
-# TODO
+## Misc
 
-- tox for tests (multiple python versions) or docker on github actions?
-- pypi
+- `sat4envi_fixed_spec.json` contains modifies OpenAPI schema that includes datatypes for `search` endpoint
+
