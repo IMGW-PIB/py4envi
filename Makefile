@@ -1,6 +1,7 @@
 VENV_NAME?=venv
 MODULE=py4envi
-LINTED=$(shell find -name "*.py" -not -path "./venv/*" -not -path "./py4envi_openapi_client/*")
+DIST=dist/*
+LINTED=setup.py py4envi/* tests/*
 PYTHON=${VENV_NAME}/bin/python3
 
 venv: $(VENV_NAME)/bin/activate
@@ -34,6 +35,8 @@ dist:
 	rm -rf *.egg-info
 	${PYTHON} setup.py sdist bdist_wheel
 
-install: dist
-	${PYTHON} -m pip uninstall -y $(MODULE)
-	${PYTHON} -m pip install .
+twine-check:
+	${PYTHON} -m twine check ${DIST}
+
+twine-upload:
+	${PYTHON} -m twine upload ${DIST}
