@@ -15,9 +15,9 @@ Unreleased changes will be listed here.
 
 ### Fixed
 
-## [0.0.1] - 2021-05-01
+## [0.0.2] - 2021-05-01
 
-Initial release
+Initial release with fixed pypi version
 
 ### Added
 
