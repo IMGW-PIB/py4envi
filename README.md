@@ -18,7 +18,12 @@ See below for examples on both use-cases.
 
 ## Installation
 
-For now only installation from the source code is available:
+From [PyPI](https://pypi.org/project/py4envi/):
+```bash
+$ pip install py4envi
+```
+
+From the source code (in the main directory):
 
 ```bash
 $ python -m pip install .
