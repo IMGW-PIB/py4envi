@@ -1,7 +1,7 @@
 VENV_NAME?=venv
 MODULE=py4envi
 DIST=dist/*
-LINTED=setup.py py4envi/* tests/*
+LINTED=setup.py py4envi tests
 PYTHON=${VENV_NAME}/bin/python3
 
 venv: $(VENV_NAME)/bin/activate
