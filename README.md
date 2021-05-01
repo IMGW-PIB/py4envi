@@ -1,3 +1,5 @@
+![tests](https://github.com/IMGW-PIB/py4envi/actions/workflows/test.yaml/badge.svg) ![publishing](https://github.com/IMGW-PIB/py4envi/actions/workflows/publish.yaml/badge.svg) [![PyPI version](https://badge.fury.io/py/py4envi.svg)](https://badge.fury.io/py/py4envi)
+
 # Py4Envi
 
 Py4Envi is a python library developed at IMGW-PIB that allows for easy and efficient programatic access to sat4envi resources.
@@ -165,4 +167,3 @@ _ = scenes.download_scene_artifact(scene, Path("."), overwrite=True)
 ## Misc
 
 - `sat4envi_fixed_spec.json` contains modifies OpenAPI schema that includes datatypes for `search` endpoint
-

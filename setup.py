@@ -34,7 +34,7 @@ setup(
         "console_scripts": ["py4envi = py4envi.__main__:main"],
     },
     classifiers=[
-        "License :: OSI Approved :: LGPL-2.1 License",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
