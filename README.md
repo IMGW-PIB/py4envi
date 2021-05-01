@@ -1,6 +1,6 @@
 # Py4Envi
 
-Py4Envi is a python library that allows for easy and efficient programatic access to sat4envi resources.
+Py4Envi is a python library developed at IMGW-PIB that allows for easy and efficient programatic access to sat4envi resources.
 https://dane.sat4envi.imgw.pl/
 
 Requires Python >= 3.7.
